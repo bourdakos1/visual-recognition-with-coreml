@@ -71,3 +71,5 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 [xcode_download]: https://developer.apple.com/xcode/downloads/
 
 [camera_view_controller]:  /Core%20ML%20Vision/CameraViewController.swift
+
+[screenshot_iphone]: /Screenshots/iPhone
