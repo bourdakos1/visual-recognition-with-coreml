@@ -10,10 +10,11 @@ A deep neural network model is trained on the cloud by Watson Visual Recognition
 Make sure you have these software versions installed on your machine. **These versions are required to support Core ML**:
 
 - **MacOS 10.11 El Capitan** or later
-- **[Xcode 9][xcode_download]** or later
 - **iOS 11** or later (on your iPhone or iPad if you want the application to be on your device)
+- **[Xcode 9][xcode_download]** or later
 - **[Carthage 0.29][carthage_instructions]** or later
 > **Carthage installation**
+>
 > If you don’t have Homebrew on your computer, it’s easier to setup Carthage with the `.pkg` installer. You can download it [here][carthage_download].
 
 ## Getting the files
