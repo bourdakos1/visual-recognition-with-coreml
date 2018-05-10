@@ -4,7 +4,7 @@ Classify images offline with [Watson Visual Recognition][vizreq] and [Core ML][c
 
 A deep neural network model is trained on the cloud by Watson Visual Recognition. The app then downloads the model which can be used offline by Core ML to classify images. Everytime the app is opened it checks if there are any updates to the model and downloads them if it can.
 
-![App Screenshot](/Screenshots/iPhone.png)
+![App Screenshot][screenshot_iphone]
 
 ## Before you begin
 Make sure you have these software versions installed on your machine. **These versions are required to support Core ML**:
@@ -48,7 +48,6 @@ The Watson Swift SDK makes it easy to keep track of your custom Core ML models a
 
 Use the Carthage dependency manager to download and build the Watson Swift SDK.
 
-1.  Install [Carthage](https://github.com/Carthage/Carthage#installing-carthage).
 1.  Open a terminal window and navigate to this project's directory.
 1.  Run the following command to download and build the Watson Swift SDK:
 
@@ -58,7 +57,7 @@ Use the Carthage dependency manager to download and build the Watson Swift SDK.
     
 ## Configuring the app
 
-1.  In Xcode, open the [ImageClassificationViewController.swift](../master/Core%20ML%20Vision%20Discovery/ImageClassificationViewController.swift) file.
+1.  In Xcode, open the [ImageClassificationViewController.swift][camera_view_controller] file.
 1.  Paste the values that you saved earlier into properties near the top of the file and save it:
     - Visual Recognition API key > **apiKey**.
     - Visual Recognition Classifier ID > **classifierID**.
@@ -97,3 +96,7 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 [vizreq_tooling]: https://watson-visual-recognition.ng.bluemix.net/
 [xcode_download]: https://developer.apple.com/xcode/downloads/
 [watson_studio_visrec_tooling]: https://dataplatform.ibm.com/registration/stepone?target=watson_vision_combined&context=wdp&apps=watson_studio&cm_sp=WatsonPlatform-WatsonPlatform-_-OnPageNavCTA-IBMWatson_VisualRecognition-_-CoreMLGithub
+
+[camera_view_controller]:  /Core%20ML%20Vision/CameraViewController.swift
+
+[screenshot_iphone]: /Screenshots/iPhone.png
