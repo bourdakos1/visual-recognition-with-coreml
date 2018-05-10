@@ -5,7 +5,8 @@ Classify images offline with [Watson Visual Recognition][vizreq] and [Core ML][c
 A deep neural network model is trained on the cloud by Watson Visual Recognition. The app then downloads the model which can be used offline by Core ML to classify images. Everytime the app is opened it checks if there are any updates to the model and downloads them if it can.
 
 ## Before you begin
-- Make sure that you have installed [Xcode 9][xcode_download] or later and iOS 11.0 or later. These versions are required to support Core ML.
+- Make sure that you have installed [Xcode 9][xcode_download] or later and iOS 11.0 or later.
+> These versions are required to support Core ML.
 
 ## Getting the files
 Use GitHub to clone the repository locally, or download the .zip file of the repository and extract the files.
