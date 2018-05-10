@@ -27,20 +27,11 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
 ## Training a custom model
 https://watson-developer-cloud.github.io/watson-vision-coreml-code-pattern/lessons/creating-your-custom-classifier.html
 
-## Finding your Model ID and API Key
-1. Go back to the Visual Recognition dashboard, where you trained your model.
-    ![][screenshot_w16]
-    
-1. Click the **Credentials** tab.
-    ![][screenshot_w17]
-    
-1. Click **View Credentials**. We’ll need to copy the `api_key`.
-    ![][screenshot_w18]
-    
-1. Navigate back to the Visual Recognition dashboard once again, scroll down to the section labeled **Custom Models**.
-    ![][screenshot_w19]
-    
-1. Click **Copy model ID**.
+## Configure your app
+1. Open the project in XCode.
+1. Copy the **Model ID** and paste it into the **classifierId** property in the [`CameraViewController.swift`][camera_view_controller] file.
+1. Create a `Credentials.plist` file.
+1. Open `Credentials.plist` and create a new item named `VISUAL_RECOGNITION_API_KEY`. Copy your **api_key** and paste it into this field.
 
 ## Installing the Watson Swift SDK
 The Watson Swift SDK makes it easy to keep track of your custom Core ML models and to download your custom classifiers from IBM Cloud to your device.
@@ -55,18 +46,9 @@ Use the Carthage dependency manager to download and build the Watson Swift SDK.
     ```
 
 ## Running the app
-The app uses the Visual Recognition service and Core ML model on your device to classify the image. Then the app sends the classification to Watson Discovery service and displays more information about the cable.
-
-When you run the app, the SDK makes sure that the version of the Visual Recognition model on your device is in sync with the latest version on IBM Cloud. If the local version is older, the SDK downloads the model to your device. With a local model, you can classify images offline. You need to be connected to the internet to communicate with the Discovery service.
-
 1. In Xcode, select the `Core ML Vision` scheme.
-1. Run the app in the simulator or on a device.
-1. Classify an image by clicking the camera icon and selecting a photo from your photo library or by taking a picture of a USB or HDMI connector. To add your own images in the simulator, drag the image from Finder to the simulator window.
-1. Pull new versions of the visual recognition model with the refresh button in the upper right.
-
-    If you're online, the application queries the Discovery service and displays information about the classification results in the bottom panel.
-
-    **Tip:** The visual recognition classifier status must be `Ready` to use it. Check the classifier status in Watson Studio on the Visual Recognition instance overview page.
+1. You can run the app in the simulator or on your device.
+> **Note:** The visual recognition classifier status must be `Ready` to use it. Check the classifier status in Watson Studio on the Visual Recognition instance overview page.
 
 ## What to do next
 
