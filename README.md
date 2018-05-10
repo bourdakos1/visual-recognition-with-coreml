@@ -25,7 +25,7 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
 1. Log in to Watson Studio, [dataplatform.ibm.com][watson_studio_visrec_tooling]. From this link you can create an IBM Cloud account, sign up for Watson Studio, or log in.
 
 ## Training a custom model
-1. Navigate to [Watson Studio][watson_studio_url].
+1. Navigate to Watson Studio, [dataplatform.ibm.com][watson_studio_url].
 
 1. Once in Watson Studio, click **New project**.
     ![][screenshot_w0]
@@ -59,11 +59,14 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
 1. When prompted, select the option for the **Lite** plan and click **Create**.
     ![][screenshot_w9]
     
-1. Return to the Watson Studio homepage, [https://dataplatform.ibm.com][watson_studio_url], where you should see your new Visual Recognition service listed, hit the **Launch Tool** button.
+1. Return to the Watson Studio homepage, [dataplatform.ibm.com][watson_studio_url], where you should see your new Visual Recognition service listed, hit the **Launch Tool** button.
     ![][screenshot_w10]
     
 1. Next you will select the **Create Model** button within the box labeled **Custom**, this is where we begin to create our custom model.
     ![][screenshot_w11]
+    
+1. On the right side, click **browse** to upload our [training data][training_data]. Click the open button.
+    ![][screenshot_w13]
 
 ### Copy your Model ID and API Key
 1. In Watson Studio on the Visual Recognition instance overview page, click your Visual Recognition instance name (it's next to Associated Service). 
@@ -132,6 +135,7 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 [watson_studio_visrec_tooling]: https://dataplatform.ibm.com/registration/stepone?target=watson_vision_combined&context=wdp&apps=watson_studio&cm_sp=WatsonPlatform-WatsonPlatform-_-OnPageNavCTA-IBMWatson_VisualRecognition-_-CoreMLGithub
 
 [camera_view_controller]:  /Core%20ML%20Vision/CameraViewController.swift
+[training_data]:/Training%20Data
 
 [screenshot_iphone]: /Screenshots/iPhone.png
 [screenshot_w0]: /Screenshots/walkthrough_0.png
