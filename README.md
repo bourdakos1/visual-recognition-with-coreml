@@ -7,8 +7,14 @@ A deep neural network model is trained on the cloud by Watson Visual Recognition
 ![App Screenshot](/Screenshots/iPhone.png)
 
 ## Before you begin
-- Make sure that you have installed [Xcode 9][xcode_download] or later and iOS 11.0 or later.
-> These versions are required to support Core ML.
+Make sure you have these software versions installed on your machine. **These versions are required to support Core ML**:
+
+- **MacOS 10.11 El Capitan** or later
+- **[Xcode 9][xcode_download]** or later
+- **iOS 11** or later (on your iPhone or iPad if you want the application to be on your device)
+- **[Carthage 0.29][carthage_instructions]** or later
+> **Carthage installation**
+> If you don’t have Homebrew on your computer, it’s easier to setup Carthage with the `.pkg` installer. You can download it [here][carthage_download].
 
 ## Getting the files
 Use GitHub to clone the repository locally, or download the .zip file of the repository and extract the files.
@@ -81,6 +87,8 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 - [Apple machine learning][core_ml] and [Core ML documentation](https://developer.apple.com/documentation/coreml)
 - [Watson console](https://bluemix.net/developer/watson) on IBM Cloud
 
+[carthage_download]: https://github.com/Carthage/Carthage/releases
+[carthage_instructions]: https://github.com/Carthage/Carthage#installing-carthage
 [vizreq]: https://www.ibm.com/watson/services/visual-recognition/
 [discovery]: https://www.ibm.com/watson/services/discovery/
 [core_ml]: https://developer.apple.com/machine-learning/
