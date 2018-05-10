@@ -25,7 +25,7 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
 1. Log in to Watson Studio ([dataplatform.ibm.com][watson_studio_url]). From this link you can create an IBM Cloud account, sign up for Watson Studio, or log in.
 
 ## Training a custom model
-https://watson-developer-cloud.github.io/watson-vision-coreml-code-pattern/lessons/creating-your-custom-classifier.html
+For an in depth walkthrough of creating a custom mode, check out the [Core ML & Watson Visual Recognition Code Pattern][code_pattern].
 
 ## Configure your app
 1. Open the project in XCode.
@@ -61,6 +61,7 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 - [Apple machine learning][core_ml] and [Core ML documentation](https://developer.apple.com/documentation/coreml)
 - [Watson console](https://bluemix.net/developer/watson) on IBM Cloud
 
+[code_pattern]: https://watson-developer-cloud.github.io/watson-vision-coreml-code-pattern/lessons/creating-your-custom-classifier.html
 [watson_studio_url]: https://dataplatform.ibm.com
 [carthage_download]: https://github.com/Carthage/Carthage/releases
 [carthage_instructions]: https://github.com/Carthage/Carthage#installing-carthage
