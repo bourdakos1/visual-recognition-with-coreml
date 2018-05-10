@@ -25,7 +25,7 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
 1. Log in to Watson Studio ([dataplatform.ibm.com][watson_studio_url]). From this link you can create an IBM Cloud account, sign up for Watson Studio, or log in.
 
 ## Training a custom model
-For an in depth walkthrough of creating a custom mode, check out the [Core ML & Watson Visual Recognition Code Pattern][code_pattern].
+For an in depth walkthrough of creating a custom model, check out the [Core ML & Watson Visual Recognition Code Pattern][code_pattern].
 
 ## Configure your app
 1. Open the project in XCode.
