@@ -72,4 +72,4 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 
 [camera_view_controller]:  /Core%20ML%20Vision/CameraViewController.swift
 
-[screenshot_iphone]: /Screenshots/iPhone
+[screenshot_iphone]: /Screenshots/iPhone.png
