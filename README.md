@@ -1,11 +1,10 @@
-# Visual Recognition and Discovery with Core ML
+# Watson Visual Recognition and Core ML
 
-Classify images with [Watson Visual Recognition][vizreq] and [Core ML][core_ml], and then query [Watson Discovery][discovery] with the classification results.
+Classify images offline with [Watson Visual Recognition][vizreq] and [Core ML][core_ml].
 
-The images are classified offline using a deep neural network that is trained by Visual Recognition. The app then takes the classification returned by Visual Recognition and sends it in a query to the Discovery service to return more information about the objects in the image.
+A deep neural network model is trained on the cloud by Watson Visual Recognition. The app then downloads the model which can be used offline by Core ML to classify images. Everytime the app is opened it checks if there are any updates to the model and downloads them if it can.
 
 ## Before you begin
-- Consider downloading and configuring [Visual Recognition with Core ML][vizreq_with_coreml] before using this starter. If you already completed that starter, skip the next sections and go to [Installing the Watson Swift SDK](#installing-the-watson-swift-sdk).
 - Make sure that you have installed [Xcode 9][xcode_download] or later and iOS 11.0 or later. These versions are required to support Core ML.
 
 ## Getting the files
@@ -35,8 +34,6 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
 1.  Copy your **api_key** and paste it into the **apiKey** property in the [ImageClassificationViewController](../master/Core%20ML%20Vision%20With%20Discovery/Core%20ML%20Vision%Discovery/ImageClassificationViewController.swift) file.
 
 ## Installing the Watson Swift SDK
-Start here if you already downloaded and configured [Visual Recognition with Core ML][vizreq_with_coreml].
-
 The Watson Swift SDK makes it easy to keep track of your custom Core ML models and to download your custom classifiers from IBM Cloud to your device.
 
 Use the Carthage dependency manager to download and build the Watson Swift SDK.
@@ -48,35 +45,13 @@ Use the Carthage dependency manager to download and build the Watson Swift SDK.
     ```bash
     carthage bootstrap --platform iOS
     ```
-
-## Setting up Discovery
-Next, you integrate Watson Discovery.
-
-### Creating your Discovery service
-If you have an existing instance of the Discovery service, you can use it. Otherwise, follow these steps to create an instance:
-
-1.  In Watson Studio, click **Services** > **Watson Services**. 
-1.  Click **Add service** and add `Discovery`.
-1.  Select a plan and click **Create**. 
-1.  In your Discovery service overview page, click **Credentials**. If no credentials are available, click **New Credential** to create a new set of credentials.
-1.  Click **View Credentials** and copy and save the `username` and `password` values. You'll use them next in the application.
-
-### Configuring your Discovery service
-To set up Discovery, upload the sample documents that have information about the cables. The app queries your documents in the Discovery service and returns relevant information about the cable.
-
-1.  From the Discovery service overview page in the earlier step, click **Launch tool**.
-1.  Create a data collection and name it `Connectors`. Accept the default configuration and click **Create**.
-1.  Upload the documents from the [Data/Discovery](../master/Data/Discovery) directory.
-1.  Under Collection info, click **Use this collection in API**. Copy and save the `Collection Id` and  `Environment Id` values.
-
+    
 ## Configuring the app
 
 1.  In Xcode, open the [ImageClassificationViewController.swift](../master/Core%20ML%20Vision%20Discovery/ImageClassificationViewController.swift) file.
 1.  Paste the values that you saved earlier into properties near the top of the file and save it:
     - Visual Recognition API key > **apiKey**.
     - Visual Recognition Classifier ID > **classifierID**.
-    - Discovery credentials > **discoveryUsername** and **discoveryPassword**.
-    - Collection info > **discoveryEnvironmentID** and **discoveryCollectionID**.
 
 ## Running the app
 The app uses the Visual Recognition service and Core ML model on your device to classify the image. Then the app sends the classification to Watson Discovery service and displays more information about the cable.
