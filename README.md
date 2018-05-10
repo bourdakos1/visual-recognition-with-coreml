@@ -27,11 +27,11 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
 ### Training the model
 1.  In Watson Studio on the Visual Recognition instance overview page, click **Create Model** in the Custom box.
 
-![][screenshot_w0]
+    ![][screenshot_w0]
 
 1.  If a project is not yet associated with the Visual Recognition instance you created, a project is created. Name your project 'Custom Core ML' and click the **Create**. 
 
-![][screenshot_w1]
+    ![][screenshot_w1]
 
     **Tip**: If no storage is defined, click **refresh**.
 1.  Upload each .zip file of sample images from the `Training Images` directory onto the data panel. Add the `hdmi_male.zip` file to your model by clicking the **Browse** button in the data panel. Also add the `usb_male.zip`, `thunderbolt_male.zip`, `vga_male.zip` file to your model.
