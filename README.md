@@ -67,17 +67,27 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
     
 1. On the right side, click **browse** to upload our [training data][training_data]. Click the open button.
     ![][screenshot_w13]
+    
+1. It will take a moment for the zips to be uploaded, once they are ready, click the three dot menu next to the files and choose **Add to model** for each .zip file.
+    ![][screenshot_w14]
 
-### Copy your Model ID and API Key
-1. In Watson Studio on the Visual Recognition instance overview page, click your Visual Recognition instance name (it's next to Associated Service). 
-1. Scroll down to find the **Custom Core ML** classifier you just created. 
-1. Copy the **Model ID** of the classifier.
-1. In the Visual Recognition instance overview page in Watson Studio. Click the **Credentials** tab, and then click **View credentials**. Copy the `api_key` of the service.
-
-### Adding the classifierId and apiKey to the project
-1. Open the project in XCode.
-1. Copy the **Model ID** and paste it into the **classifierID** property in the [ImageClassificationViewController](../master/Core%20ML%20Vision%20With%20Discovery/Core%20ML%20Vision%Discovery/ImageClassificationViewController.swift) file.
-1. Copy your **api_key** and paste it into the **apiKey** property in the [ImageClassificationViewController](../master/Core%20ML%20Vision%20With%20Discovery/Core%20ML%20Vision%Discovery/ImageClassificationViewController.swift) file.
+1. Allow a few moments for the files to be added to the model. The tooling will automatically create a class for the set of images based on the names of the .zip files. Once the images are done loading you can click **Train Model** in the upper right corner. Please allow a few minutes for the model to train. 
+    ![][screenshot_w15]
+    
+## Finding your Model ID and API Key
+1. Go back to the Visual Recognition dashboard, where you trained your model.
+    ![][screenshot_w16]
+    
+1. Click the **Credentials** tab.
+    ![][screenshot_w17]
+    
+1. Click **View Credentials**. We’ll need to copy the `api_key`.
+    ![][screenshot_w18]
+    
+1. Navigate back to the Visual Recognition dashboard once again, scroll down to the section labeled **Custom Models**.
+    ![][screenshot_w19]
+    
+1. Click **Copy model ID**.
 
 ## Installing the Watson Swift SDK
 The Watson Swift SDK makes it easy to keep track of your custom Core ML models and to download your custom classifiers from IBM Cloud to your device.
@@ -90,20 +100,13 @@ Use the Carthage dependency manager to download and build the Watson Swift SDK.
     ```bash
     carthage bootstrap --platform iOS
     ```
-    
-## Configuring the app
-
-1. In Xcode, open the [CameraViewController.swift][camera_view_controller] file.
-1. Paste the values that you saved earlier into properties near the top of the file and save it:
-    - Visual Recognition API key > **apiKey**.
-    - Visual Recognition Classifier ID > **classifierID**.
 
 ## Running the app
 The app uses the Visual Recognition service and Core ML model on your device to classify the image. Then the app sends the classification to Watson Discovery service and displays more information about the cable.
 
 When you run the app, the SDK makes sure that the version of the Visual Recognition model on your device is in sync with the latest version on IBM Cloud. If the local version is older, the SDK downloads the model to your device. With a local model, you can classify images offline. You need to be connected to the internet to communicate with the Discovery service.
 
-1. In Xcode, select the `Core ML Vision Discovery` scheme.
+1. In Xcode, select the `Core ML Vision` scheme.
 1. Run the app in the simulator or on a device.
 1. Classify an image by clicking the camera icon and selecting a photo from your photo library or by taking a picture of a USB or HDMI connector. To add your own images in the simulator, drag the image from Finder to the simulator window.
 1. Pull new versions of the visual recognition model with the refresh button in the upper right.
@@ -114,11 +117,11 @@ When you run the app, the SDK makes sure that the version of the Visual Recognit
 
 ## What to do next
 
-Try using your own data: Train a Visual Recognition classifier with your own images and add your own documents to Discovery. For details on those services, see the links in the Resources section.
+Try using your own data: Train a Visual Recognition classifier with your own images. For details on the Visual Recognition service, see the links in the Resources section.
 
 ## Resources
 
-- [Visual Recognition docs](https://console.bluemix.net/docs/services/visual-recognition/getting-started.html) and [Discovery docs](https://console.bluemix.net/docs/services/discovery/getting-started-tool.html)
+- [Visual Recognition docs](https://console.bluemix.net/docs/services/visual-recognition/getting-started.html)
 - [Watson Swift SDK](https://github.com/watson-developer-cloud/swift-sdk)
 - [Apple machine learning][core_ml] and [Core ML documentation](https://developer.apple.com/documentation/coreml)
 - [Watson console](https://bluemix.net/developer/watson) on IBM Cloud
