@@ -152,13 +152,11 @@ class CameraViewController: UIViewController {
             noCameraView.isHidden = true
             tempImageView.isHidden = true
             captureButton.isHidden = false
-            noCameraView.isHidden = true
         } else {
             tempImageView.image = UIImage(named: "background")
             noCameraView.isHidden = false
             tempImageView.isHidden = false
             captureButton.isHidden = true
-            noCameraView.isHidden = false
         }
         retakeButton.isHidden = true
         choosePhotoButton.isHidden = false
