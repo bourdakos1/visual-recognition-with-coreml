@@ -13,6 +13,7 @@ Make sure you have these software versions installed on your machine. **These ve
 - **iOS 11** or later (on your iPhone or iPad if you want the application to be on your device)
 - **[Xcode 9][xcode_download]** or later
 - **[Carthage 0.29][carthage_instructions]** or later
+
 > **Carthage installation**
 >
 > If you don’t have Homebrew on your computer, it’s easier to setup Carthage with the `.pkg` installer. You can download it [here][carthage_download].
@@ -20,41 +21,68 @@ Make sure you have these software versions installed on your machine. **These ve
 ## Getting the files
 Use GitHub to clone the repository locally, or download the .zip file of the repository and extract the files.
 
-### Setting up Visual Recognition in Watson Studio
-1.  Log into [Watson Studio][watson_studio_visrec_tooling]. From this link you can create an IBM Cloud account, sign up for Watson Studio, or log in.
-1.  After you sign up or log in, you'll be on the Visual Recognition instance overview page in Watson Studio.
+## Setting up Visual Recognition in Watson Studio
+1. Log in to Watson Studio, [dataplatform.ibm.com][watson_studio_visrec_tooling]. From this link you can create an IBM Cloud account, sign up for Watson Studio, or log in.
 
-### Training the model
-1.  In Watson Studio on the Visual Recognition instance overview page, click **Create Model** in the Custom box.
+## Training a custom model
+1. Navigate to [Watson Studio][watson_studio_url].
 
+1. Once in Watson Studio, click **New project**.
     ![][screenshot_w0]
 
-1.  If a project is not yet associated with the Visual Recognition instance you created, a project is created. Name your project 'Custom Core ML' and click the **Create**. 
-
+1. Select the option for **Complete** and hit _OK_.
     ![][screenshot_w1]
+    
+1. Name your project Connectors and click **add** on the right hand side under _Define Storage_ and follow the prompts.
+    ![][screenshot_w2]
+    
+1. Select the **Lite** option for your storage service and click **Create**.
+    ![][screenshot_w3]
+    
+1. Once your storage service is created, you will be redirected to the **new project** page, you will need to hit **Refresh** for your service to be assigned to the project.
+    ![][screenshot_w4]
+    
+1. Click **Create** to finish creating your project.
 
-    **Tip**: If no storage is defined, click **refresh**.
-1.  Upload each .zip file of sample images from the `Training Images` directory onto the data panel. Add the `hdmi_male.zip` file to your model by clicking the **Browse** button in the data panel. Also add the `usb_male.zip`, `thunderbolt_male.zip`, `vga_male.zip` file to your model.
-1.  Click **Train Model**.
+1. From the project dashboard, select the **Settings** tab.
+    ![][screenshot_w5]
+
+1. Scroll down until you see the option to **Add service**.
+    ![][screenshot_w6]
+    
+1. Select **Watson**.
+    ![][screenshot_w7]
+    
+1. Click **Add** in the **Visual Recognition** box.
+    ![][screenshot_w8]
+
+1. When prompted, select the option for the **Lite** plan and click **Create**.
+    ![][screenshot_w9]
+    
+1. Return to the Watson Studio homepage, [https://dataplatform.ibm.com][watson_studio_url], where you should see your new Visual Recognition service listed, hit the **Launch Tool** button.
+    ![][screenshot_w10]
+    
+1. Next you will select the **Create Model** button within the box labeled **Custom**, this is where we begin to create our custom model.
+    ![][screenshot_w11]
 
 ### Copy your Model ID and API Key
-1.  In Watson Studio on the Visual Recognition instance overview page, click your Visual Recognition instance name (it's next to Associated Service). 
-1.  Scroll down to find the **Custom Core ML** classifier you just created. 
-1.  Copy the **Model ID** of the classifier.
-1.  In the Visual Recognition instance overview page in Watson Studio. Click the **Credentials** tab, and then click **View credentials**. Copy the `api_key` of the service.
+1. In Watson Studio on the Visual Recognition instance overview page, click your Visual Recognition instance name (it's next to Associated Service). 
+1. Scroll down to find the **Custom Core ML** classifier you just created. 
+1. Copy the **Model ID** of the classifier.
+1. In the Visual Recognition instance overview page in Watson Studio. Click the **Credentials** tab, and then click **View credentials**. Copy the `api_key` of the service.
 
 ### Adding the classifierId and apiKey to the project
-1.  Open the project in XCode.
-1.  Copy the **Model ID** and paste it into the **classifierID** property in the [ImageClassificationViewController](../master/Core%20ML%20Vision%20With%20Discovery/Core%20ML%20Vision%Discovery/ImageClassificationViewController.swift) file.
-1.  Copy your **api_key** and paste it into the **apiKey** property in the [ImageClassificationViewController](../master/Core%20ML%20Vision%20With%20Discovery/Core%20ML%20Vision%Discovery/ImageClassificationViewController.swift) file.
+1. Open the project in XCode.
+1. Copy the **Model ID** and paste it into the **classifierID** property in the [ImageClassificationViewController](../master/Core%20ML%20Vision%20With%20Discovery/Core%20ML%20Vision%Discovery/ImageClassificationViewController.swift) file.
+1. Copy your **api_key** and paste it into the **apiKey** property in the [ImageClassificationViewController](../master/Core%20ML%20Vision%20With%20Discovery/Core%20ML%20Vision%Discovery/ImageClassificationViewController.swift) file.
 
 ## Installing the Watson Swift SDK
 The Watson Swift SDK makes it easy to keep track of your custom Core ML models and to download your custom classifiers from IBM Cloud to your device.
 
 Use the Carthage dependency manager to download and build the Watson Swift SDK.
 
-1.  Open a terminal window and navigate to this project's directory.
-1.  Run the following command to download and build the Watson Swift SDK:
+1. Open a terminal window and navigate to this project's directory.
+1. Run the following command to download and build the Watson Swift SDK:
 
     ```bash
     carthage bootstrap --platform iOS
@@ -62,8 +90,8 @@ Use the Carthage dependency manager to download and build the Watson Swift SDK.
     
 ## Configuring the app
 
-1.  In Xcode, open the [CameraViewController.swift][camera_view_controller] file.
-1.  Paste the values that you saved earlier into properties near the top of the file and save it:
+1. In Xcode, open the [CameraViewController.swift][camera_view_controller] file.
+1. Paste the values that you saved earlier into properties near the top of the file and save it:
     - Visual Recognition API key > **apiKey**.
     - Visual Recognition Classifier ID > **classifierID**.
 
@@ -72,9 +100,9 @@ The app uses the Visual Recognition service and Core ML model on your device to 
 
 When you run the app, the SDK makes sure that the version of the Visual Recognition model on your device is in sync with the latest version on IBM Cloud. If the local version is older, the SDK downloads the model to your device. With a local model, you can classify images offline. You need to be connected to the internet to communicate with the Discovery service.
 
-1.  In Xcode, select the `Core ML Vision Discovery` scheme.
-1.  Run the app in the simulator or on a device.
-1.  Classify an image by clicking the camera icon and selecting a photo from your photo library or by taking a picture of a USB or HDMI connector. To add your own images in the simulator, drag the image from Finder to the simulator window.
+1. In Xcode, select the `Core ML Vision Discovery` scheme.
+1. Run the app in the simulator or on a device.
+1. Classify an image by clicking the camera icon and selecting a photo from your photo library or by taking a picture of a USB or HDMI connector. To add your own images in the simulator, drag the image from Finder to the simulator window.
 1. Pull new versions of the visual recognition model with the refresh button in the upper right.
 
     If you're online, the application queries the Discovery service and displays information about the classification results in the bottom panel.
@@ -92,6 +120,7 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 - [Apple machine learning][core_ml] and [Core ML documentation](https://developer.apple.com/documentation/coreml)
 - [Watson console](https://bluemix.net/developer/watson) on IBM Cloud
 
+[watson_studio_url]: https://dataplatform.ibm.com
 [carthage_download]: https://github.com/Carthage/Carthage/releases
 [carthage_instructions]: https://github.com/Carthage/Carthage#installing-carthage
 [vizreq]: https://www.ibm.com/watson/services/visual-recognition/
