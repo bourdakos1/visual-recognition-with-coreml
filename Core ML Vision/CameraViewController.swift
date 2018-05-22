@@ -86,15 +86,15 @@ class CameraViewController: UIViewController {
         }
         
         captureSession = AVCaptureSession()
-        captureSession?.sessionPreset = .hd1920x1080
+        captureSession?.sessionPreset = .high
         captureSession?.addInput(input)
         photoOutput = AVCapturePhotoOutput()
         
         if (captureSession?.canAddOutput(photoOutput!) != nil) {
             captureSession?.addOutput(photoOutput!)
             previewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
-            previewLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
-            previewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+            previewLayer?.videoGravity = .resizeAspectFill
+            previewLayer?.connection?.videoOrientation = .portrait
             cameraView.layer.addSublayer(previewLayer!)
             captureSession?.startRunning()
         }
