@@ -61,7 +61,7 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 - [Apple machine learning][core_ml] and [Core ML documentation](https://developer.apple.com/documentation/coreml)
 - [Watson console](https://bluemix.net/developer/watson) on IBM Cloud
 
-[code_pattern]: https://watson-developer-cloud.github.io/watson-vision-coreml-code-pattern/lessons/creating-your-custom-classifier.html
+[code_pattern]: https://watson-developer-cloud.github.io/watson-vision-coreml-code-pattern/
 [watson_studio_url]: https://dataplatform.ibm.com
 [carthage_download]: https://github.com/Carthage/Carthage/releases
 [carthage_instructions]: https://github.com/Carthage/Carthage#installing-carthage
