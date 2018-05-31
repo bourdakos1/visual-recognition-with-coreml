@@ -51,7 +51,7 @@ class CameraViewController: UIViewController {
             // No Visual Recognition API key found. Make sure you add your API key to the Credentials.plist file.
             fatalError()
         }
-        return VisualRecognition(apiKey: apiKey, version: VisualRecognitionConstants.version)
+        return VisualRecognition(version: VisualRecognitionConstants.version, apiKey: apiKey)
     }()
     
     // MARK: - Override Functions
