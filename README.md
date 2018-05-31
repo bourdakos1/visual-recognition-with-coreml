@@ -41,8 +41,8 @@ Use the Carthage dependency manager to download and build the Watson Swift SDK.
 
 ## Configure your app
 1. Open the project in XCode.
-1. Copy the **Model ID** and paste it into the `modelId` property in the [`CameraViewController.swift`][camera_view_controller] file.
-1. Copy your **apikey** and paste it into the `apiKey` property in the [`Credentials.plist`][credentials_plist] file.
+1. Copy the **Model ID** of the model you trained and paste it into the `modelId` property in the [`CameraViewController.swift`][camera_view_controller] file.
+1. Copy your **"apikey"** from your Visual Recognition service credentials and paste it into the `apiKey` property in the [`Credentials.plist`][credentials_plist] file.
 
 ## Running the app
 1. In Xcode, select the `Core ML Vision` scheme.
