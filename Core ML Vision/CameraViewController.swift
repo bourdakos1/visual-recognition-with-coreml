@@ -19,8 +19,8 @@ import AVFoundation
 import VisualRecognitionV3
 
 struct VisualRecognitionConstants {
-    // Update this with your own classifier id.
-    static let classifierId = "YOUR_CLASSIFIER_ID"
+    // Update this with your own model id.
+    static let modelId = "YOUR_MODEL_ID"
     static let version = "2017-11-10"
 }
 
@@ -47,7 +47,7 @@ class CameraViewController: UIViewController {
             // Please create a Credentials.plist file with your Visual Recognition credentials.
             fatalError()
         }
-        guard let apiKey = NSDictionary(contentsOfFile: path)?["VISUAL_RECOGNITION_API_KEY"] as? String else {
+        guard let apiKey = NSDictionary(contentsOfFile: path)?["apikey"] as? String else {
             // No Visual Recognition API key found. Make sure you add your API key to the Credentials.plist file.
             fatalError()
         }
@@ -66,7 +66,7 @@ class CameraViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // This isn't part of the SDK, but it's convenient.
-        visualRecognition.checkLocalModelStatus(classifierID: VisualRecognitionConstants.classifierId) { modelUpToDate in
+        visualRecognition.checkLocalModelStatus(classifierID: VisualRecognitionConstants.modelId) { modelUpToDate in
             if !modelUpToDate {
                 self.invokeModelUpdate()
             }
@@ -113,7 +113,7 @@ class CameraViewController: UIViewController {
         }
         // The spinner can only be hailed after viewDidAppear.
         SwiftSpinner.show("Updating...")
-        visualRecognition.updateLocalModel(classifierID: VisualRecognitionConstants.classifierId, failure: failure, success: success)
+        visualRecognition.updateLocalModel(classifierID: VisualRecognitionConstants.modelId, failure: failure, success: success)
     }
     
     func classifyImage(for image: UIImage, localThreshold: Double = 0.0) {
@@ -123,7 +123,7 @@ class CameraViewController: UIViewController {
             self.showAlert("Could not classify image", alertMessage: error.localizedDescription)
         }
         
-        visualRecognition.classifyWithLocalModel(image: image, classifierIDs: [VisualRecognitionConstants.classifierId], threshold: localThreshold, failure: failure) { classifiedImages in
+        visualRecognition.classifyWithLocalModel(image: image, classifierIDs: [VisualRecognitionConstants.modelId], threshold: localThreshold, failure: failure) { classifiedImages in
             
             if classifiedImages.images.count > 0 && classifiedImages.images[0].classifiers.count > 0 {
                 // Update UI on main thread
