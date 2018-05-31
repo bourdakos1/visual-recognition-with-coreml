@@ -27,12 +27,6 @@ Use GitHub to clone the repository locally, or download the .zip file of the rep
 ## Training a custom model
 For an in depth walkthrough of creating a custom model, check out the [Core ML & Watson Visual Recognition Code Pattern][code_pattern].
 
-## Configure your app
-1. Open the project in XCode.
-1. Copy the **Model ID** and paste it into the **classifierId** property in the [`CameraViewController.swift`][camera_view_controller] file.
-1. Create a `Credentials.plist` file.
-1. Open `Credentials.plist` and create a new item named `VISUAL_RECOGNITION_API_KEY`. Copy your **api_key** and paste it into this field.
-
 ## Installing the Watson Swift SDK
 The Watson Swift SDK makes it easy to keep track of your custom Core ML models and to download your custom classifiers from IBM Cloud to your device.
 
@@ -42,13 +36,18 @@ Use the Carthage dependency manager to download and build the Watson Swift SDK.
 1. Run the following command to download and build the Watson Swift SDK:
 
     ```bash
-    carthage bootstrap --platform iOS
+    carthage update --platform iOS
     ```
+
+## Configure your app
+1. Open the project in XCode.
+1. Copy the **Model ID** and paste it into the `modelId` property in the [`CameraViewController.swift`][camera_view_controller] file.
+1. Copy your **apikey** and paste it into the `apiKey` property in the [`Credentials.plist`][credentials_plist] file.
 
 ## Running the app
 1. In Xcode, select the `Core ML Vision` scheme.
 1. You can run the app in the simulator or on your device.
-> **Note:** The visual recognition classifier status must be `Ready` to use it. Check the classifier status in Watson Studio on the Visual Recognition instance overview page.
+> **Note:** The visual recognition classifier status must be **Ready** to use it. Check the classifier status in Watson Studio on the Visual Recognition instance overview page.
 
 ## What to do next
 
@@ -71,6 +70,7 @@ Try using your own data: Train a Visual Recognition classifier with your own ima
 [vizreq_tooling]: https://watson-visual-recognition.ng.bluemix.net/
 [xcode_download]: https://developer.apple.com/xcode/downloads/
 
-[camera_view_controller]:  /Core%20ML%20Vision/CameraViewController.swift
+[camera_view_controller]: /Core%20ML%20Vision/CameraViewController.swift
+[credentials_plist]: /Core%20ML%20Vision/Credentials.plist
 
 [screenshot_iphone]: /Screenshots/iPhone.png
