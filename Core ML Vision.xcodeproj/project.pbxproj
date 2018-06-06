@@ -8,6 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		236F3C6020A3E948001E252E /* VisualRecognition+ModelCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F3C5F20A3E948001E252E /* VisualRecognition+ModelCheck.swift */; };
+		2399972320C848C10050D17D /* VisualRecognition+CoreML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970420C848C10050D17D /* VisualRecognition+CoreML.swift */; };
+		2399972420C848C10050D17D /* VisualRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970520C848C10050D17D /* VisualRecognition.swift */; };
+		2399972520C848C10050D17D /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970720C848C10050D17D /* MultipartFormData.swift */; };
+		2399972620C848C10050D17D /* RestRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970820C848C10050D17D /* RestRequest.swift */; };
+		2399972720C848C10050D17D /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970920C848C10050D17D /* Authentication.swift */; };
+		2399972820C848C10050D17D /* RestToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970A20C848C10050D17D /* RestToken.swift */; };
+		2399972920C848C10050D17D /* RestUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970B20C848C10050D17D /* RestUtilities.swift */; };
+		2399972A20C848C10050D17D /* CodableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970C20C848C10050D17D /* CodableExtensions.swift */; };
+		2399972B20C848C10050D17D /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970D20C848C10050D17D /* JSON.swift */; };
+		2399972C20C848C10050D17D /* JSONWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970E20C848C10050D17D /* JSONWrapper.swift */; };
+		2399972D20C848C10050D17D /* RestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399970F20C848C10050D17D /* RestError.swift */; };
+		2399972E20C848C10050D17D /* Face.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971120C848C10050D17D /* Face.swift */; };
+		2399972F20C848C10050D17D /* FaceIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971220C848C10050D17D /* FaceIdentity.swift */; };
+		2399973020C848C10050D17D /* FaceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971320C848C10050D17D /* FaceLocation.swift */; };
+		2399973120C848C10050D17D /* WarningInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971420C848C10050D17D /* WarningInfo.swift */; };
+		2399973220C848C10050D17D /* Classifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971520C848C10050D17D /* Classifier.swift */; };
+		2399973320C848C10050D17D /* FaceAge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971620C848C10050D17D /* FaceAge.swift */; };
+		2399973420C848C10050D17D /* ClassifiedImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971720C848C10050D17D /* ClassifiedImages.swift */; };
+		2399973520C848C10050D17D /* ImageWithFaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971820C848C10050D17D /* ImageWithFaces.swift */; };
+		2399973620C848C10050D17D /* PositiveExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971920C848C10050D17D /* PositiveExample.swift */; };
+		2399973720C848C10050D17D /* Classifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971A20C848C10050D17D /* Classifiers.swift */; };
+		2399973820C848C10050D17D /* DetectedFaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971B20C848C10050D17D /* DetectedFaces.swift */; };
+		2399973920C848C10050D17D /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971C20C848C10050D17D /* Class.swift */; };
+		2399973A20C848C10050D17D /* ClassResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971D20C848C10050D17D /* ClassResult.swift */; };
+		2399973B20C848C10050D17D /* ErrorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971E20C848C10050D17D /* ErrorInfo.swift */; };
+		2399973C20C848C10050D17D /* FaceGender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399971F20C848C10050D17D /* FaceGender.swift */; };
+		2399973D20C848C10050D17D /* ClassifierResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399972020C848C10050D17D /* ClassifierResult.swift */; };
+		2399973E20C848C10050D17D /* ClassifiedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399972120C848C10050D17D /* ClassifiedImage.swift */; };
+		2399973F20C848C10050D17D /* VisualRecognition+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2399972220C848C10050D17D /* VisualRecognition+UIImage.swift */; };
 		23B0A77920A3888B00D02B06 /* UIViewController+PulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A77820A3888B00D02B06 /* UIViewController+PulleyViewController.swift */; };
 		23B0A77B20A3A7FB00D02B06 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23B0A77A20A3A7FB00D02B06 /* Credentials.plist */; };
 		23CC92B320A1530F00F70DDC /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CC92B220A1530F00F70DDC /* ProgressBar.swift */; };
@@ -22,8 +51,6 @@
 		2DBEDF461FD20680003F17C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DBEDF451FD20672003F17C8 /* Main.storyboard */; };
 		2DC5F13D1FD609050063B2D5 /* ResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5F13C1FD609050063B2D5 /* ResultsTableViewController.swift */; };
 		2DC5F13F1FD6093B0063B2D5 /* ResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC5F13E1FD6093B0063B2D5 /* ResultsTableViewCell.swift */; };
-		711D7950206449A000887C43 /* VisualRecognitionV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 711D794F206449A000887C43 /* VisualRecognitionV3.framework */; };
-		711D7951206449A000887C43 /* VisualRecognitionV3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 711D794F206449A000887C43 /* VisualRecognitionV3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,7 +60,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				711D7951206449A000887C43 /* VisualRecognitionV3.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -42,6 +68,35 @@
 
 /* Begin PBXFileReference section */
 		236F3C5F20A3E948001E252E /* VisualRecognition+ModelCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualRecognition+ModelCheck.swift"; sourceTree = "<group>"; };
+		2399970420C848C10050D17D /* VisualRecognition+CoreML.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VisualRecognition+CoreML.swift"; sourceTree = "<group>"; };
+		2399970520C848C10050D17D /* VisualRecognition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualRecognition.swift; sourceTree = "<group>"; };
+		2399970720C848C10050D17D /* MultipartFormData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		2399970820C848C10050D17D /* RestRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestRequest.swift; sourceTree = "<group>"; };
+		2399970920C848C10050D17D /* Authentication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		2399970A20C848C10050D17D /* RestToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestToken.swift; sourceTree = "<group>"; };
+		2399970B20C848C10050D17D /* RestUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestUtilities.swift; sourceTree = "<group>"; };
+		2399970C20C848C10050D17D /* CodableExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableExtensions.swift; sourceTree = "<group>"; };
+		2399970D20C848C10050D17D /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		2399970E20C848C10050D17D /* JSONWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONWrapper.swift; sourceTree = "<group>"; };
+		2399970F20C848C10050D17D /* RestError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestError.swift; sourceTree = "<group>"; };
+		2399971120C848C10050D17D /* Face.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Face.swift; sourceTree = "<group>"; };
+		2399971220C848C10050D17D /* FaceIdentity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceIdentity.swift; sourceTree = "<group>"; };
+		2399971320C848C10050D17D /* FaceLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceLocation.swift; sourceTree = "<group>"; };
+		2399971420C848C10050D17D /* WarningInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarningInfo.swift; sourceTree = "<group>"; };
+		2399971520C848C10050D17D /* Classifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classifier.swift; sourceTree = "<group>"; };
+		2399971620C848C10050D17D /* FaceAge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceAge.swift; sourceTree = "<group>"; };
+		2399971720C848C10050D17D /* ClassifiedImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassifiedImages.swift; sourceTree = "<group>"; };
+		2399971820C848C10050D17D /* ImageWithFaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageWithFaces.swift; sourceTree = "<group>"; };
+		2399971920C848C10050D17D /* PositiveExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositiveExample.swift; sourceTree = "<group>"; };
+		2399971A20C848C10050D17D /* Classifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classifiers.swift; sourceTree = "<group>"; };
+		2399971B20C848C10050D17D /* DetectedFaces.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetectedFaces.swift; sourceTree = "<group>"; };
+		2399971C20C848C10050D17D /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
+		2399971D20C848C10050D17D /* ClassResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassResult.swift; sourceTree = "<group>"; };
+		2399971E20C848C10050D17D /* ErrorInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorInfo.swift; sourceTree = "<group>"; };
+		2399971F20C848C10050D17D /* FaceGender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceGender.swift; sourceTree = "<group>"; };
+		2399972020C848C10050D17D /* ClassifierResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassifierResult.swift; sourceTree = "<group>"; };
+		2399972120C848C10050D17D /* ClassifiedImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassifiedImage.swift; sourceTree = "<group>"; };
+		2399972220C848C10050D17D /* VisualRecognition+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VisualRecognition+UIImage.swift"; sourceTree = "<group>"; };
 		23B0A77820A3888B00D02B06 /* UIViewController+PulleyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PulleyViewController.swift"; sourceTree = "<group>"; };
 		23B0A77A20A3A7FB00D02B06 /* Credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		23CC92B220A1530F00F70DDC /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -58,7 +113,6 @@
 		2DBEDF451FD20672003F17C8 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2DC5F13C1FD609050063B2D5 /* ResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewController.swift; sourceTree = "<group>"; };
 		2DC5F13E1FD6093B0063B2D5 /* ResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableViewCell.swift; sourceTree = "<group>"; };
-		711D794F206449A000887C43 /* VisualRecognitionV3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VisualRecognitionV3.framework; path = Carthage/Build/iOS/VisualRecognitionV3.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,13 +120,64 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				711D7950206449A000887C43 /* VisualRecognitionV3.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2399970320C848C10050D17D /* VisualRecognitionV3 */ = {
+			isa = PBXGroup;
+			children = (
+				2399970420C848C10050D17D /* VisualRecognition+CoreML.swift */,
+				2399970520C848C10050D17D /* VisualRecognition.swift */,
+				2399970620C848C10050D17D /* RestKit */,
+				2399971020C848C10050D17D /* Models */,
+				2399972220C848C10050D17D /* VisualRecognition+UIImage.swift */,
+			);
+			path = VisualRecognitionV3;
+			sourceTree = "<group>";
+		};
+		2399970620C848C10050D17D /* RestKit */ = {
+			isa = PBXGroup;
+			children = (
+				2399970720C848C10050D17D /* MultipartFormData.swift */,
+				2399970820C848C10050D17D /* RestRequest.swift */,
+				2399970920C848C10050D17D /* Authentication.swift */,
+				2399970A20C848C10050D17D /* RestToken.swift */,
+				2399970B20C848C10050D17D /* RestUtilities.swift */,
+				2399970C20C848C10050D17D /* CodableExtensions.swift */,
+				2399970D20C848C10050D17D /* JSON.swift */,
+				2399970E20C848C10050D17D /* JSONWrapper.swift */,
+				2399970F20C848C10050D17D /* RestError.swift */,
+			);
+			path = RestKit;
+			sourceTree = "<group>";
+		};
+		2399971020C848C10050D17D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2399971120C848C10050D17D /* Face.swift */,
+				2399971220C848C10050D17D /* FaceIdentity.swift */,
+				2399971320C848C10050D17D /* FaceLocation.swift */,
+				2399971420C848C10050D17D /* WarningInfo.swift */,
+				2399971520C848C10050D17D /* Classifier.swift */,
+				2399971620C848C10050D17D /* FaceAge.swift */,
+				2399971720C848C10050D17D /* ClassifiedImages.swift */,
+				2399971820C848C10050D17D /* ImageWithFaces.swift */,
+				2399971920C848C10050D17D /* PositiveExample.swift */,
+				2399971A20C848C10050D17D /* Classifiers.swift */,
+				2399971B20C848C10050D17D /* DetectedFaces.swift */,
+				2399971C20C848C10050D17D /* Class.swift */,
+				2399971D20C848C10050D17D /* ClassResult.swift */,
+				2399971E20C848C10050D17D /* ErrorInfo.swift */,
+				2399971F20C848C10050D17D /* FaceGender.swift */,
+				2399972020C848C10050D17D /* ClassifierResult.swift */,
+				2399972120C848C10050D17D /* ClassifiedImage.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		2D7870C61FE1D3A30018BFE9 /* Pulley Framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +194,7 @@
 			children = (
 				2D7870C61FE1D3A30018BFE9 /* Pulley Framework */,
 				2D7DF31C204F4CA500CC26D7 /* SwiftSpinner.swift */,
+				2399970320C848C10050D17D /* VisualRecognitionV3 */,
 				23CC92B220A1530F00F70DDC /* ProgressBar.swift */,
 			);
 			path = "Supporting Files";
@@ -97,7 +203,6 @@
 		2DBDD2881FCF7FAE004A6DC1 = {
 			isa = PBXGroup;
 			children = (
-				711D794F206449A000887C43 /* VisualRecognitionV3.framework */,
 				2DBDD2931FCF7FAE004A6DC1 /* Core ML Vision */,
 				2DBDD2921FCF7FAE004A6DC1 /* Products */,
 			);
@@ -203,17 +308,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2399973320C848C10050D17D /* FaceAge.swift in Sources */,
+				2399972420C848C10050D17D /* VisualRecognition.swift in Sources */,
+				2399973220C848C10050D17D /* Classifier.swift in Sources */,
+				2399973F20C848C10050D17D /* VisualRecognition+UIImage.swift in Sources */,
 				23CC92B320A1530F00F70DDC /* ProgressBar.swift in Sources */,
+				2399973B20C848C10050D17D /* ErrorInfo.swift in Sources */,
+				2399973720C848C10050D17D /* Classifiers.swift in Sources */,
+				2399972D20C848C10050D17D /* RestError.swift in Sources */,
+				2399972520C848C10050D17D /* MultipartFormData.swift in Sources */,
 				2DC5F13D1FD609050063B2D5 /* ResultsTableViewController.swift in Sources */,
 				2DC5F13F1FD6093B0063B2D5 /* ResultsTableViewCell.swift in Sources */,
+				2399972F20C848C10050D17D /* FaceIdentity.swift in Sources */,
+				2399973020C848C10050D17D /* FaceLocation.swift in Sources */,
+				2399973C20C848C10050D17D /* FaceGender.swift in Sources */,
+				2399973520C848C10050D17D /* ImageWithFaces.swift in Sources */,
 				2D7DF31D204F4CA500CC26D7 /* SwiftSpinner.swift in Sources */,
+				2399972920C848C10050D17D /* RestUtilities.swift in Sources */,
+				2399972C20C848C10050D17D /* JSONWrapper.swift in Sources */,
 				2D7870C11FE1CF6F0018BFE9 /* PulleyPassthroughScrollView.swift in Sources */,
 				2DBDD2971FCF7FAE004A6DC1 /* CameraViewController.swift in Sources */,
+				2399972820C848C10050D17D /* RestToken.swift in Sources */,
+				2399973A20C848C10050D17D /* ClassResult.swift in Sources */,
+				2399973D20C848C10050D17D /* ClassifierResult.swift in Sources */,
+				2399972A20C848C10050D17D /* CodableExtensions.swift in Sources */,
+				2399972B20C848C10050D17D /* JSON.swift in Sources */,
 				2DBDD2951FCF7FAE004A6DC1 /* AppDelegate.swift in Sources */,
 				2D7870C51FE1CFDE0018BFE9 /* UIView+constrainToParent.swift in Sources */,
+				2399973420C848C10050D17D /* ClassifiedImages.swift in Sources */,
 				23B0A77920A3888B00D02B06 /* UIViewController+PulleyViewController.swift in Sources */,
+				2399973620C848C10050D17D /* PositiveExample.swift in Sources */,
+				2399972620C848C10050D17D /* RestRequest.swift in Sources */,
+				2399973120C848C10050D17D /* WarningInfo.swift in Sources */,
 				236F3C6020A3E948001E252E /* VisualRecognition+ModelCheck.swift in Sources */,
 				2D7870C31FE1CF910018BFE9 /* PulleyViewController.swift in Sources */,
+				2399972E20C848C10050D17D /* Face.swift in Sources */,
+				2399972320C848C10050D17D /* VisualRecognition+CoreML.swift in Sources */,
+				2399972720C848C10050D17D /* Authentication.swift in Sources */,
+				2399973920C848C10050D17D /* Class.swift in Sources */,
+				2399973820C848C10050D17D /* DetectedFaces.swift in Sources */,
+				2399973E20C848C10050D17D /* ClassifiedImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

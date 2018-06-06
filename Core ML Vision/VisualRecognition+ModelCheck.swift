@@ -5,7 +5,6 @@
 //  Created by Nicholas Bourdakos on 5/9/18.
 //
 
-import VisualRecognitionV3
 import CoreML
 
 extension VisualRecognition {

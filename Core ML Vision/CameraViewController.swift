@@ -16,7 +16,6 @@
 
 import UIKit
 import AVFoundation
-import VisualRecognitionV3
 
 struct VisualRecognitionConstants {
     // Update this with your own model id.
@@ -138,7 +137,7 @@ class CameraViewController: UIViewController {
         pushResults(classes: [], position: .closed)
     }
     
-    func pushResults(classes: [VisualRecognitionV3.ClassResult], position: PulleyPosition = .partiallyRevealed) {
+    func pushResults(classes: [ClassResult], position: PulleyPosition = .partiallyRevealed) {
         guard let drawer = pulleyViewController?.drawerContentViewController as? ResultsTableViewController else {
             return
         }

@@ -15,7 +15,6 @@
  **/
 
 import UIKit
-import VisualRecognitionV3
 
 class ResultsTableViewController: UIViewController {
     
@@ -34,7 +33,7 @@ class ResultsTableViewController: UIViewController {
     
     // MARK: - Variable Declarations
 
-    var classifications = [VisualRecognitionV3.ClassResult]()
+    var classifications = [ClassResult]()
     var drawerBottomSafeArea: CGFloat = 0.0 {
         didSet {
             self.loadViewIfNeeded()
