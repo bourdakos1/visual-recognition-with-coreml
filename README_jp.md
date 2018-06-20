@@ -22,7 +22,7 @@
 GitHubから git clone でリポジトリをローカルにクローンするか、リポジトリの.zipファイルを直接ダウンロードしてファイルを展開してください。
 
 ## Watson Studio での Visual Recognition の設定
-1. Watson Studio ([dataplatform.ibm.com][watson_studio_url]) にログインする。 このリンク先では、IBM Cloud アカウントを作成したり、Watson Studio にサインアップしたり、ログインすることができる。
+1. Watson Studio ([dataplatform.ibm.com][watson_studio_url]) にログインする。 このリンク先では、IBM Cloud アカウントを作成したり、Watson Studio にサインアップしたり、ログインすることができる。
 
 ## カスタムモデルのトレーニング
 カスタムモデルを作成するための詳細な手順については [Core ML & Watson Visual Recognition Code Pattern][code_pattern] を参照してください。
@@ -42,7 +42,7 @@ Carthage依存関係マネージャを使用して、Watson Swift SDKをダウ�
 ## アプリケーションの設定
 1. XCode でプロジェクトを開いてください。
 2. トレーニングしたモデルの **Model ID** をコピーし、[`CameraViewController.swift`][camera_view_controller]  の `modelId` に入力する。 
-3. Visual Recognition Service の資格情報から **"apikey"** をコピーし、 [`Credentials.plist`][credentials_plist] ファイルの `apiKey` に入力する。
+3. Visual Recognition Service の資格情報から **"apikey"** をコピーし、 [`Credentials.plist`][credentials_plist] ファイルの `apiKey` に入力する。
 
 ## アプリケーションの実行
 1. XCode で `Core ML Vision` スキームを選択する。
@@ -52,7 +52,7 @@ Carthage依存関係マネージャを使用して、Watson Swift SDKをダウ�
 ## 次に試してほしいこと
 
 独自データの利用について：  
-手持ちの画像を Visual Recognition でトレーニングしてください。Visual Recognition の詳細については、下記のリソースのリンクを参照してください。
+手持ちの画像を Visual Recognition でトレーニングしてください。Visual Recognition の詳細については、下記のリソースのリンクを参照してください。
 
 ## リソース
 
