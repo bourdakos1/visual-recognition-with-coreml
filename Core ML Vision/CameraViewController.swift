@@ -20,7 +20,7 @@ import VisualRecognitionV3
 
 struct VisualRecognitionConstants {
     // Update this with your own model id.
-    static let modelId = "YOUR_MODEL_ID"
+    static let modelIds = ["YOUR_MODEL_ID"]
     static let version = "2017-11-10"
 }
 
@@ -51,7 +51,7 @@ class CameraViewController: UIViewController {
             // No Visual Recognition API key found. Make sure you add your API key to the Credentials.plist file.
             fatalError()
         }
-        return VisualRecognition(version: VisualRecognitionConstants.version, apiKey: apiKey)
+        return VisualRecognition.easyInit(apiKey: apiKey, version: VisualRecognitionConstants.version)
     }()
     
     // MARK: - Override Functions
@@ -65,10 +65,12 @@ class CameraViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // This isn't part of the SDK, but it's convenient.
-        visualRecognition.checkLocalModelStatus(classifierID: VisualRecognitionConstants.modelId) { modelUpToDate in
-            if !modelUpToDate {
-                self.invokeModelUpdate()
+        for modelId in VisualRecognitionConstants.modelIds {
+            // This isn't part of the SDK, but it's convenient.
+            visualRecognition.checkLocalModelStatus(classifierID: modelId) { modelUpToDate in
+                if !modelUpToDate {
+                    self.invokeModelUpdate(for: modelId)
+                }
             }
         }
     }
@@ -102,7 +104,7 @@ class CameraViewController: UIViewController {
         previewLayer?.frame = view.bounds
     }
     
-    func invokeModelUpdate() {
+    func invokeModelUpdate(for modelId: String) {
         let failure = { (error: Error) in
             self.modelUpdateFail(error: error)
             SwiftSpinner.hide()
@@ -113,7 +115,7 @@ class CameraViewController: UIViewController {
         }
         // The spinner can only be hailed after viewDidAppear.
         SwiftSpinner.show("Updating...")
-        visualRecognition.updateLocalModel(classifierID: VisualRecognitionConstants.modelId, failure: failure, success: success)
+        visualRecognition.updateLocalModel(classifierID: modelId, failure: failure, success: success)
     }
     
     func classifyImage(for image: UIImage, localThreshold: Double = 0.0) {
@@ -123,26 +125,28 @@ class CameraViewController: UIViewController {
             self.showAlert("Could not classify image", alertMessage: error.localizedDescription)
         }
         
-        visualRecognition.classifyWithLocalModel(image: image, classifierIDs: [VisualRecognitionConstants.modelId], threshold: localThreshold, failure: failure) { classifiedImages in
+        visualRecognition.classifyWithLocalModel(image: image, classifierIDs: VisualRecognitionConstants.modelIds, threshold: localThreshold, failure: failure) { classifiedImages in
             
-            if classifiedImages.images.count > 0 && classifiedImages.images[0].classifiers.count > 0 {
-                // Update UI on main thread
-                DispatchQueue.main.async {
-                    self.pushResults(classes: classifiedImages.images[0].classifiers[0].classes)
-                }
+            guard let classifiedImage = classifiedImages.images.first else {
+                return
+            }
+            
+            // Update UI on main thread
+            DispatchQueue.main.async {
+                self.push(results: classifiedImage.classifiers)
             }
         }
     }
     
     func dismissResults() {
-        pushResults(classes: [], position: .closed)
+        push(results: [], position: .closed)
     }
     
-    func pushResults(classes: [VisualRecognitionV3.ClassResult], position: PulleyPosition = .partiallyRevealed) {
+    func push(results: [VisualRecognitionV3.ClassifierResult], position: PulleyPosition = .partiallyRevealed) {
         guard let drawer = pulleyViewController?.drawerContentViewController as? ResultsTableViewController else {
             return
         }
-        drawer.classifications = classes
+        drawer.classifications = results
         pulleyViewController?.setDrawerPosition(position: position, animated: true)
         drawer.tableView.reloadData()
     }
@@ -185,7 +189,9 @@ class CameraViewController: UIViewController {
     }
     
     @IBAction func updateModel() {
-        invokeModelUpdate()
+        for modelId in VisualRecognitionConstants.modelIds {
+            invokeModelUpdate(for: modelId)
+        }
     }
     
     @IBAction func presentPhotoPicker() {
@@ -219,6 +225,10 @@ extension CameraViewController {
         default:
             errorMessage = "Please try again."
         }
+        
+        // TODO: Do some more checks, does the model exist? is it still training?
+        // The services response is pretty generic.
+        
         showAlert("Unable to download model", alertMessage: errorMessage)
     }
 }

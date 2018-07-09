@@ -34,7 +34,7 @@ class ResultsTableViewController: UIViewController {
     
     // MARK: - Variable Declarations
 
-    var classifications = [VisualRecognitionV3.ClassResult]()
+    var classifications = [VisualRecognitionV3.ClassifierResult]()
     var drawerBottomSafeArea: CGFloat = 0.0 {
         didSet {
             self.loadViewIfNeeded()
@@ -54,6 +54,11 @@ class ResultsTableViewController: UIViewController {
             pulleyViewController?.feedbackGenerator = feedbackGenerator
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.tableFooterView = UIView()
+    }
 }
 
 // MARK: - PulleyDrawerViewControllerDelegate
@@ -66,7 +71,11 @@ extension ResultsTableViewController: PulleyDrawerViewControllerDelegate {
     
     func partialRevealDrawerHeight(bottomSafeArea: CGFloat) -> CGFloat {
         // For devices with a bottom safe area, we want to make our drawer taller.
-        return min(56.0 * CGFloat(classifications.count) + 33.0 + bottomSafeArea, 264.0 + bottomSafeArea)
+        let count = classifications.reduce(0, { (result, classifierResult) -> Int in
+            return result + classifierResult.classes.count
+        })
+        
+        return min(56.0 * CGFloat(count) + 33.0 + bottomSafeArea, 264.0 + bottomSafeArea)
     }
     
     func supportedDrawerPositions() -> [PulleyPosition] {
@@ -99,15 +108,29 @@ extension ResultsTableViewController: PulleyDrawerViewControllerDelegate {
 
 extension ResultsTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if classifications.count <= section {
+            return 0
+        }
+        return classifications[section].classes.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if classifications.count <= 1 {
+            return nil
+        }
+        return classifications[section].name
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return classifications.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellDefault", for: indexPath) as! ResultTableViewCell
         
-        let score = classifications[indexPath.item].score ?? 0.0
+        let score = classifications[indexPath.section].classes[indexPath.item].score ?? 0.0
 
-        cell.label.text = classifications[indexPath.item].className
+        cell.label.text = classifications[indexPath.section].classes[indexPath.item].className
         cell.progress.progress = CGFloat(score)
         cell.score.text = String(format: "%.2f", score)
         

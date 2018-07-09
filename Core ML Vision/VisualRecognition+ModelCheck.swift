@@ -9,6 +9,17 @@ import VisualRecognitionV3
 import CoreML
 
 extension VisualRecognition {
+    static func easyInit(apiKey: String, version: String) -> VisualRecognition {
+        let allowedChars = CharacterSet(charactersIn: "abcdef0123456789")
+        
+        let isOldKey = allowedChars.isSuperset(of: CharacterSet(charactersIn: apiKey))
+        
+        if apiKey.count <= 40 && isOldKey {
+            return VisualRecognition(apiKey: apiKey, version: version)
+        }
+        return VisualRecognition(version: version, apiKey: apiKey)
+    }
+    
     func checkLocalModelStatus(classifierID: String, modelUpToDate: @escaping (Bool) -> Void) {
         // setup date formatter '2017-12-04T19:44:27.419Z'
         let dateFormatter = DateFormatter()
