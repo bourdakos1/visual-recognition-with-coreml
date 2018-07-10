@@ -16,6 +16,11 @@
 
 import UIKit
 import AVFoundation
+
+/**
+ * This app uses several extensions from `VisualRecognition+Extension.swift`.
+ * Be sure to include it in your project if you are reusing this code.
+ **/
 import VisualRecognitionV3
 
 struct VisualRecognitionConstants {
@@ -51,6 +56,14 @@ class CameraViewController: UIViewController {
             // No Visual Recognition API key found. Make sure you add your API key to the Credentials.plist file.
             fatalError()
         }
+        
+        /*
+         `easyInit` is not part of the Watson SDK.
+         `easyInit` is a convenient extension that tries to detect whether the supplied apiKey is:
+         - a Visual Recognition instance created before May 23, 2018
+         - a new IAM API key
+         It then returns the properly initialized VisualRecognition instance.
+         */
         return VisualRecognition.easyInit(apiKey: apiKey, version: VisualRecognitionConstants.version)
     }()
     
@@ -66,7 +79,12 @@ class CameraViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         for modelId in VisualRecognitionConstants.modelIds {
-            // This isn't part of the SDK, but it's convenient.
+            /*
+             `checkLocalModelStatus` is not part of the Watson SDK.
+             `checkLocalModelStatus` is a convenient extension that checks if the local model
+             is up to date. The actual SDK makes this check as well in `updateLocalModel`.
+             However, we perfom this check purely for UI purposes.
+             */
             visualRecognition.checkLocalModelStatus(classifierID: modelId) { modelUpToDate in
                 if !modelUpToDate {
                     self.invokeModelUpdate(for: modelId)

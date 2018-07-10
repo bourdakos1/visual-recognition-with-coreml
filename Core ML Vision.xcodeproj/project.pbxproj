@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		236F3C6020A3E948001E252E /* VisualRecognition+ModelCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F3C5F20A3E948001E252E /* VisualRecognition+ModelCheck.swift */; };
+		236F3C6020A3E948001E252E /* VisualRecognition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F3C5F20A3E948001E252E /* VisualRecognition+Extension.swift */; };
 		23B0A77920A3888B00D02B06 /* UIViewController+PulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A77820A3888B00D02B06 /* UIViewController+PulleyViewController.swift */; };
 		23B0A77B20A3A7FB00D02B06 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23B0A77A20A3A7FB00D02B06 /* Credentials.plist */; };
 		23CC92B320A1530F00F70DDC /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CC92B220A1530F00F70DDC /* ProgressBar.swift */; };
@@ -41,7 +41,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		236F3C5F20A3E948001E252E /* VisualRecognition+ModelCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualRecognition+ModelCheck.swift"; sourceTree = "<group>"; };
+		236F3C5F20A3E948001E252E /* VisualRecognition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualRecognition+Extension.swift"; sourceTree = "<group>"; };
 		23B0A77820A3888B00D02B06 /* UIViewController+PulleyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PulleyViewController.swift"; sourceTree = "<group>"; };
 		23B0A77A20A3A7FB00D02B06 /* Credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		23CC92B220A1530F00F70DDC /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 				23B0A77A20A3A7FB00D02B06 /* Credentials.plist */,
 				2DC5F13C1FD609050063B2D5 /* ResultsTableViewController.swift */,
 				2DC5F13E1FD6093B0063B2D5 /* ResultsTableViewCell.swift */,
-				236F3C5F20A3E948001E252E /* VisualRecognition+ModelCheck.swift */,
+				236F3C5F20A3E948001E252E /* VisualRecognition+Extension.swift */,
 			);
 			path = "Core ML Vision";
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 				2DBDD2951FCF7FAE004A6DC1 /* AppDelegate.swift in Sources */,
 				2D7870C51FE1CFDE0018BFE9 /* UIView+constrainToParent.swift in Sources */,
 				23B0A77920A3888B00D02B06 /* UIViewController+PulleyViewController.swift in Sources */,
-				236F3C6020A3E948001E252E /* VisualRecognition+ModelCheck.swift in Sources */,
+				236F3C6020A3E948001E252E /* VisualRecognition+Extension.swift in Sources */,
 				2D7870C31FE1CF910018BFE9 /* PulleyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
