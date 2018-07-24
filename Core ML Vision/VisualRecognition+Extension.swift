@@ -9,17 +9,27 @@ import VisualRecognitionV3
 import CoreML
 
 extension VisualRecognition {
+    /// Helper function for choosing the proper initializion (old / IAM) of `VisualRecognition`.
     static func easyInit(apiKey: String, version: String) -> VisualRecognition {
+        // API keys from before May 23, 2018 should only contain hex values.
         let allowedChars = CharacterSet(charactersIn: "abcdef0123456789")
         
-        let isOldKey = allowedChars.isSuperset(of: CharacterSet(charactersIn: apiKey))
+        // Check if the provided key contains only hex characters.
+        let onlyHex = allowedChars.isSuperset(of: CharacterSet(charactersIn: apiKey))
         
-        if apiKey.count <= 40 && isOldKey {
+        // Older keys generally have 40 characters, but may have less.
+        if apiKey.count <= 40 && onlyHex {
             return VisualRecognition(apiKey: apiKey, version: version)
         }
+        
+        /*
+         Default to IAM.
+         IAM keys appear to have 44 characters and aren't restricted to hex values.
+         */
         return VisualRecognition(version: version, apiKey: apiKey)
     }
-    
+
+    /// Helper function for checking if a model needs to be updated.
     func checkLocalModelStatus(classifierID: String, modelUpToDate: @escaping (Bool) -> Void) {
         // setup date formatter '2017-12-04T19:44:27.419Z'
         let dateFormatter = DateFormatter()
