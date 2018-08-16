@@ -1,5 +1,8 @@
 # Watson Visual Recognition and Core ML
 
+> Note: This repo is now being dedicated to my own fun experiments. For a more vanilla version use [this repo](https://github.com/watson-developer-cloud/visual-recognition-coreml).
+
+
 Classify images offline with [Watson Visual Recognition][vizreq] and [Core ML][core_ml].
 
 A deep neural network model is trained on the cloud by Watson Visual Recognition. The app then downloads the model which can be used offline by Core ML to classify images. Everytime the app is opened it checks if there are any updates to the model and downloads them if it can.
