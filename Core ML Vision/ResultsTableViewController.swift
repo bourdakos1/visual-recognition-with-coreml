@@ -33,6 +33,8 @@ class ResultsTableViewController: UIViewController {
     }
     
     // MARK: - Variable Declarations
+    
+    weak var delegate: ImageClassificationViewControllerDelegate?
 
     var classifications = [VisualRecognitionV3.ClassifierResult]()
     var drawerBottomSafeArea: CGFloat = 0.0 {
@@ -143,5 +145,16 @@ extension ResultsTableViewController: UITableViewDataSource {
 extension ResultsTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 56.0
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            if cell.isSelected {
+                return indexPath
+            }
+        }
+        
+        delegate?.didSelectItem(classifications[indexPath.section].classes[indexPath.item].className)
+        return indexPath
     }
 }
