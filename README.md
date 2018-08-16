@@ -1,6 +1,6 @@
 # Watson Visual Recognition and Core ML
 
-> **Note:** This repo is now being dedicated to my own fun experiments. For a more vanilla version use the [official repo](https://github.com/watson-developer-cloud/visual-recognition-coreml).
+> **Note:** This repo is now being dedicated to my own fun experiments. For a more vanilla version, use the [official repo](https://github.com/watson-developer-cloud/visual-recognition-coreml).
 
 
 Classify images offline with [Watson Visual Recognition][vizreq] and [Core ML][core_ml].
