@@ -8,7 +8,7 @@
 import UIKit
 
 extension ImageClassificationViewController  {
-    struct Point: Hashable {
+    private struct Point: Hashable {
         var x: Int
         var y: Int
         var cgPoint: CGPoint {
@@ -16,7 +16,7 @@ extension ImageClassificationViewController  {
         }
     }
     
-    struct OutlineState {
+    private struct OutlineState {
         var position: Point = Point(x: 0, y: 0)
         var path: UIBezierPath = UIBezierPath()
         var pathStart: CGPoint = CGPoint(x: -1, y: -1)
@@ -25,7 +25,7 @@ extension ImageClassificationViewController  {
         var seen: Set<Point> = Set<Point>()
     }
     
-    enum Direction: String {
+    private enum Direction: String {
         case up, right, down, left
     }
     
@@ -71,7 +71,7 @@ extension ImageClassificationViewController  {
         return outlinedImage
     }
     
-    func moveToBlock(_ heatmap: [[CGFloat]], _ state: inout OutlineState, scale: CGFloat, offset: CGFloat) {
+    private func moveToBlock(_ heatmap: [[CGFloat]], _ state: inout OutlineState, scale: CGFloat, offset: CGFloat) {
         state.seen.insert(Point(x: state.position.x, y: state.position.y))
         
         print("moving \(state.velocity.rawValue.uppercased()) to (\(state.position.x + 1), \(state.position.y + 1))")
@@ -97,7 +97,7 @@ extension ImageClassificationViewController  {
         }
     }
     
-    func check(_ heatmap: [[CGFloat]], _ state: inout OutlineState, scale: CGFloat, offset: CGFloat) {
+    private func check(_ heatmap: [[CGFloat]], _ state: inout OutlineState, scale: CGFloat, offset: CGFloat) {
         setNextCheck(&state)
         
         if needsEdge(heatmap, &state) {
@@ -118,7 +118,7 @@ extension ImageClassificationViewController  {
         }
     }
     
-    func needsEdge(_ heatmap: [[CGFloat]], _ state: inout OutlineState) -> Bool {
+    private func needsEdge(_ heatmap: [[CGFloat]], _ state: inout OutlineState) -> Bool {
         let down = state.position.y
         let right = state.position.x
         
@@ -134,7 +134,7 @@ extension ImageClassificationViewController  {
         }
     }
     
-    func setNextCheck(_ state: inout OutlineState) {
+    private func setNextCheck(_ state: inout OutlineState) {
         switch state.check {
         case .up:
             state.check = .right
@@ -147,7 +147,7 @@ extension ImageClassificationViewController  {
         }
     }
     
-    func setMove(_ state: inout OutlineState) {
+    private func setMove(_ state: inout OutlineState) {
         switch state.velocity {
         case .up:
             state.position.y = state.position.y - 1
@@ -160,7 +160,7 @@ extension ImageClassificationViewController  {
         }
     }
     
-    func drawEdge(_ state: inout OutlineState, scale: CGFloat, offset: CGFloat) {
+    private func drawEdge(_ state: inout OutlineState, scale: CGFloat, offset: CGFloat) {
         let down = state.position.cgPoint.y
         let right = state.position.cgPoint.x
         
