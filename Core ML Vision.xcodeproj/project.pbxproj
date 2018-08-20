@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		236F3C6020A3E948001E252E /* VisualRecognition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F3C5F20A3E948001E252E /* VisualRecognition+Extension.swift */; };
+		237A0D5721274ABE003FA1F9 /* ImageClassificationViewController+Outline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237A0D5621274ABE003FA1F9 /* ImageClassificationViewController+Outline.swift */; };
 		23B0A77920A3888B00D02B06 /* UIViewController+PulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A77820A3888B00D02B06 /* UIViewController+PulleyViewController.swift */; };
 		23B0A77B20A3A7FB00D02B06 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23B0A77A20A3A7FB00D02B06 /* Credentials.plist */; };
 		23CC92B320A1530F00F70DDC /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CC92B220A1530F00F70DDC /* ProgressBar.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		236F3C5F20A3E948001E252E /* VisualRecognition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualRecognition+Extension.swift"; sourceTree = "<group>"; };
+		237A0D5621274ABE003FA1F9 /* ImageClassificationViewController+Outline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageClassificationViewController+Outline.swift"; sourceTree = "<group>"; };
 		23B0A77820A3888B00D02B06 /* UIViewController+PulleyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PulleyViewController.swift"; sourceTree = "<group>"; };
 		23B0A77A20A3A7FB00D02B06 /* Credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		23CC92B220A1530F00F70DDC /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				2D7DF31E204F4D1E00CC26D7 /* Supporting Files */,
 				2DBDD2941FCF7FAE004A6DC1 /* AppDelegate.swift */,
 				23D8615A2125C31500B9D5AF /* ImageClassificationViewController.swift */,
+				237A0D5621274ABE003FA1F9 /* ImageClassificationViewController+Outline.swift */,
 				2DBEDF451FD20672003F17C8 /* Main.storyboard */,
 				2DBDD29E1FCF7FAE004A6DC1 /* Assets.xcassets */,
 				2DBDD2A01FCF7FAE004A6DC1 /* LaunchScreen.storyboard */,
@@ -210,6 +213,7 @@
 				2D7870C11FE1CF6F0018BFE9 /* PulleyPassthroughScrollView.swift in Sources */,
 				2DBDD2951FCF7FAE004A6DC1 /* AppDelegate.swift in Sources */,
 				2D7870C51FE1CFDE0018BFE9 /* UIView+constrainToParent.swift in Sources */,
+				237A0D5721274ABE003FA1F9 /* ImageClassificationViewController+Outline.swift in Sources */,
 				23D8615B2125C31500B9D5AF /* ImageClassificationViewController.swift in Sources */,
 				23B0A77920A3888B00D02B06 /* UIViewController+PulleyViewController.swift in Sources */,
 				236F3C6020A3E948001E252E /* VisualRecognition+Extension.swift in Sources */,

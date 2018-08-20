@@ -342,68 +342,6 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
         return newImage
     }
     
-    func renderOutline(_ heatmap: [[CGFloat]], size: CGSize) -> UIImage  {
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
-
-        let path = UIBezierPath()
-        
-        let scale = size.width / 14
-        let offset = (size.height - size.width) / 2
-        
-        for (down, row) in heatmap.enumerated() {
-            for (right, cappedAlpha) in row.enumerated() {
-                let scaledDown = CGFloat(down) * scale
-                let scaledRight = CGFloat(right) * scale
-                
-                let topLeft = CGPoint(x: scaledRight, y: scaledDown + offset)
-                let topRight = CGPoint(x: scaledRight + scale, y: scaledDown + offset)
-                let bottomRight = CGPoint(x: scaledRight + scale, y: scaledDown + scale + offset)
-                let bottomLeft = CGPoint(x: scaledRight, y: scaledDown + scale + offset)
-                
-                if cappedAlpha < 0.5 {
-                    path.move(to: bottomLeft)
-                    
-                    // check the block to the left
-                    if right <= 0 || heatmap[down][right - 1] >= 0.5 {
-                        path.addLine(to: topLeft)
-                    } else {
-                        path.move(to: topLeft)
-                    }
-                    // check the block above
-                    if down <= 0 || heatmap[down - 1][right] >= 0.5 {
-                        path.addLine(to: topRight)
-                    } else {
-                        path.move(to: topRight)
-                    }
-                    // check the block to the right
-                    if right >= heatmap[down].count - 1 || heatmap[down][right + 1] >= 0.5 {
-                        path.addLine(to: bottomRight)
-                    } else {
-                        path.move(to: bottomRight)
-                    }
-                    // check the block below
-                    if down >= heatmap.count - 1 || heatmap[down + 1][right] >= 0.5 {
-                        path.addLine(to: bottomLeft)
-                    } else {
-                        path.move(to: bottomLeft)
-                    }
-                }
-            }
-        }
-        
-        path.lineWidth = 8
-        UIColor(red: 0 / 255, green: 0 / 255, blue: 0 / 255, alpha: 0.4).setStroke()
-        path.stroke()
-        
-        path.lineWidth = 6
-        UIColor(red: 255 / 255, green: 255 / 255, blue: 255 / 255, alpha: 1).setStroke()
-        path.stroke()
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-    
     func maskImage(image: UIImage, at point: CGPoint) -> UIImage {
         let size = image.size
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
