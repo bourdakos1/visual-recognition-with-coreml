@@ -17,6 +17,10 @@
 import UIKit
 import VisualRecognitionV3
 
+protocol TableViewControllerSelectionDelegate: class {
+    func didSelectItem(_ name: String)
+}
+
 class ResultsTableViewController: UIViewController {
     
     // MARK: - IBOutlets
@@ -34,7 +38,7 @@ class ResultsTableViewController: UIViewController {
     
     // MARK: - Variable Declarations
     
-    weak var delegate: ImageClassificationViewControllerDelegate?
+    weak var delegate: TableViewControllerSelectionDelegate?
 
     var classifications = [VisualRecognitionV3.ClassifierResult]()
     var drawerBottomSafeArea: CGFloat = 0.0 {
@@ -147,14 +151,7 @@ extension ResultsTableViewController: UITableViewDelegate {
         return 56.0
     }
     
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if let cell = tableView.cellForRow(at: indexPath) {
-            if cell.isSelected {
-                return indexPath
-            }
-        }
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.didSelectItem(classifications[indexPath.section].classes[indexPath.item].className)
-        return indexPath
     }
 }

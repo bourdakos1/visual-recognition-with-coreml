@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension ImageClassificationViewController  {
+extension CameraViewController  {
     private struct Point: Hashable {
         var x: Int
         var y: Int
@@ -40,10 +40,12 @@ extension ImageClassificationViewController  {
         for (down, row) in heatmap.enumerated() {
             for (right, mean) in row.enumerated() {
                 if !seen.contains(Point(x: right, y: down)) && mean <= 0.5 {
-                    if down <= 0 || heatmap[down - 1][right] <= 0.5
-                        && right >= heatmap[down].count - 1 || heatmap[down][right + 1] <= 0.5
-                        && down >= heatmap.count - 1 || heatmap[down + 1][right] <= 0.5
-                        && right <= 0 || heatmap[down][right - 1] <= 0.5 {
+                    
+                    // If the block is surrounded by blocks, break.
+                    if (down <= 0 || heatmap[down - 1][right] <= 0.5)
+                        && (right >= heatmap[down].count - 1 || heatmap[down][right + 1] <= 0.5)
+                        && (down >= heatmap.count - 1 || heatmap[down + 1][right] <= 0.5)
+                        && (right <= 0 || heatmap[down][right - 1] <= 0.5) {
                         break
                     }
                     var state = OutlineState()
@@ -199,5 +201,80 @@ extension ImageClassificationViewController  {
             }
             state.path.addLine(to: topLeft)
         }
+    }
+    
+    func calculateHeatmap(_ confidences: [[Double]], _ originalConf: Double) -> [[CGFloat]] {
+        var minVal: CGFloat = 1.0
+        
+        var heatmap = [[CGFloat]](repeating: [CGFloat](repeating: -1, count: 14), count: 14)
+        
+        // loop through each confidence
+        for down in 0 ..< 14 {
+            for right in 0 ..< 14 {
+                // A 4x4 slice of the confidences
+                let kernel = confidences[down + 0...down + 3].map({ $0[right + 0...right + 3] })
+                
+                // loop through each confidence in the slice and get the average, ignoring -1
+                var result = 0.0
+                let weights = [
+                    [0.1, 0.5, 0.5, 0.1],
+                    [0.5, 1.0, 1.0, 0.5],
+                    [0.5, 1.0, 1.0, 0.5],
+                    [0.1, 0.5, 0.5, 0.1],
+                    ]
+                var count = weights.joined().reduce(0, +)
+                for (down, row) in kernel.enumerated() {
+                    for (right, score) in row.enumerated() {
+                        if score == -1 {
+                            count -= weights[down][right]
+                        } else {
+                            result += score * weights[down][right]
+                        }
+                    }
+                }
+                
+                let mean = CGFloat(result / count)
+                
+                heatmap[down][right] = mean
+                
+                minVal = min(mean, minVal)
+            }
+        }
+        
+        for (down, row) in heatmap.enumerated() {
+            for (right, mean) in row.enumerated() {
+                let newalpha = 1 - max(CGFloat(originalConf) - mean, 0) / max(CGFloat(originalConf) - minVal, 0)
+                let cappedAlpha = min(max(newalpha, 0), 1)
+                heatmap[down][right] = cappedAlpha
+            }
+        }
+        
+        return heatmap
+    }
+    
+    func renderHeatmap(_ heatmap: [[CGFloat]], color: UIColor, size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        
+        let scale = size.width / 14
+        let offset = (size.height - size.width) / 2
+        
+        for (down, row) in heatmap.enumerated() {
+            for (right, mean) in row.enumerated() {
+                let rectangle = CGRect(x: CGFloat(right) * scale, y: CGFloat(down) * scale + offset, width: scale, height: scale)
+                color.withAlphaComponent(mean).setFill()
+                UIRectFillUsingBlendMode(rectangle, .normal)
+            }
+        }
+        
+        color.setFill()
+        
+        let topMargin = CGRect(x: 0, y: 0, width: size.width, height: offset)
+        let bottomMargin = CGRect(x: 0, y: size.width + offset, width: size.width, height: offset)
+        UIRectFillUsingBlendMode(topMargin, .normal)
+        UIRectFillUsingBlendMode(bottomMargin, .normal)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
     }
 }

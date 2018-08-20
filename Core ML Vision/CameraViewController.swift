@@ -16,7 +16,7 @@
 
 import UIKit
 import AVFoundation
-// This app also uses extensions from `Supporting Files/VisualRecognition+Extensions.swift`.
+// This app also uses extensions from `Supporting Files/VisualRecognition+Helpers.swift`.
 import VisualRecognitionV3
 
 struct VisualRecognitionConstants {
@@ -24,11 +24,7 @@ struct VisualRecognitionConstants {
     static let version = "2018-07-24"
 }
 
-protocol ImageClassificationViewControllerDelegate: class {
-    func didSelectItem(_ name: String)
-}
-
-class ImageClassificationViewController: UIViewController, ImageClassificationViewControllerDelegate {
+class CameraViewController: UIViewController {
 
     // MARK: - IBOutlets
     
@@ -89,6 +85,10 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
         return nil
     }()
     
+    var editedImage = UIImage()
+    var originalConfs = [ClassResult]()
+    var heatmaps = [String: HeatmapImages]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         captureSession?.startRunning()
@@ -129,8 +129,6 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
         drawer.delegate = self
     }
     
-    // MARK: - Model Methods
-    
     func updateLocalModels(ids modelIds: [String]) {
         // If the array is empty the dispatch group won't be notified, so we might end up with an endless spinner.
         if modelIds.count <= 0 { return }
@@ -158,19 +156,10 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
             SwiftSpinner.hide()
         }
     }
-
-    func presentPhotoPicker(sourceType: UIImagePickerControllerSourceType) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = sourceType
-        present(picker, animated: true)
-    }
     
     // MARK: - Image Classification
     
     func classifyImage(_ image: UIImage, localThreshold: Double = 0.0) {
-        rawImage = image
-        
         editedImage = cropToCenter(image: image, targetSize: CGSize(width: 224, height: 224))
         
         showResultsUI(for: image)
@@ -191,27 +180,25 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
         }
     }
     
-    func didSelectItem(_ name: String) {
-        startAnalysis(classToAnalyze: name)
-    }
-    
-    var rawImage = UIImage()
-    var editedImage = UIImage()
-    var originalConfs = [ClassResult]()
-    
     func startAnalysis(classToAnalyze: String, localThreshold: Double = 0.0) {
+        if let heatmapImages = heatmaps[classToAnalyze] {
+            heatmapView.image = heatmapImages.heatmap
+            outlineView.image = heatmapImages.outline
+            return
+        }
+        
         var confidences = [[Double]](repeating: [Double](repeating: -1, count: 17), count: 17)
  
         DispatchQueue.main.async {
             SwiftSpinner.show("analyzing")
         }
         
-        let usbClasses = originalConfs.filter({ return $0.className == classToAnalyze })
-        guard let usbClass = usbClasses.first,
-            let originalConf = usbClass.score else {
+        let chosenClasses = originalConfs.filter({ return $0.className == classToAnalyze })
+        guard let chosenClass = chosenClasses.first,
+            let originalConf = chosenClass.score else {
                 return
         }
-
+        
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
         
@@ -250,9 +237,16 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
                 print()
                 print(confidences)
                 
+                guard let image = self.imageView.image else {
+                    return
+                }
+                
                 let heatmap = self.calculateHeatmap(confidences, originalConf)
-                let heatmapImage = self.renderHeatmap(heatmap, color: .black, size: self.rawImage.size)
-                let outlineImage = self.renderOutline(heatmap, size: self.rawImage.size)
+                let heatmapImage = self.renderHeatmap(heatmap, color: .black, size: image.size)
+                let outlineImage = self.renderOutline(heatmap, size: image.size)
+                
+                let heatmapImages = HeatmapImages(heatmap: heatmapImage, outline: outlineImage)
+                self.heatmaps[classToAnalyze] = heatmapImages
                 
                 self.heatmapView.image = heatmapImage
                 self.outlineView.image = outlineImage
@@ -265,81 +259,6 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
                 SwiftSpinner.hide()
             }
         }
-    }
-    
-    func calculateHeatmap(_ confidences: [[Double]], _ originalConf: Double) -> [[CGFloat]] {
-        var minVal: CGFloat = 1.0
-        
-        var heatmap = [[CGFloat]](repeating: [CGFloat](repeating: -1, count: 14), count: 14)
-        
-        // loop through each confidence
-        for down in 0 ..< 14 {
-            for right in 0 ..< 14 {
-                // A 4x4 slice of the confidences
-                let kernel = confidences[down + 0...down + 3].map({ $0[right + 0...right + 3] })
-                
-                // loop through each confidence in the slice and get the average, ignoring -1
-                var result = 0.0
-                let weights = [
-                    [0.1, 0.5, 0.5, 0.1],
-                    [0.5, 1.0, 1.0, 0.5],
-                    [0.5, 1.0, 1.0, 0.5],
-                    [0.1, 0.5, 0.5, 0.1],
-                    ]
-                var count = weights.joined().reduce(0, +)
-                for (down, row) in kernel.enumerated() {
-                    for (right, score) in row.enumerated() {
-                        if score == -1 {
-                            count -= weights[down][right]
-                        } else {
-                            result += score * weights[down][right]
-                        }
-                    }
-                }
-                
-                let mean = CGFloat(result / count)
-                
-                heatmap[down][right] = mean
-                
-                minVal = min(mean, minVal)
-            }
-        }
-        
-        for (down, row) in heatmap.enumerated() {
-            for (right, mean) in row.enumerated() {
-                let newalpha = 1 - max(CGFloat(originalConf) - mean, 0) / max(CGFloat(originalConf) - minVal, 0)
-                let cappedAlpha = min(max(newalpha, 0), 1)
-                heatmap[down][right] = cappedAlpha
-            }
-        }
-        
-        return heatmap
-    }
-    
-    func renderHeatmap(_ heatmap: [[CGFloat]], color: UIColor, size: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
-        
-        let scale = size.width / 14
-        let offset = (size.height - size.width) / 2
-        
-        for (down, row) in heatmap.enumerated() {
-            for (right, mean) in row.enumerated() {
-                let rectangle = CGRect(x: CGFloat(right) * scale, y: CGFloat(down) * scale + offset, width: scale, height: scale)
-                color.withAlphaComponent(mean).setFill()
-                UIRectFillUsingBlendMode(rectangle, .normal)
-            }
-        }
-        
-        color.setFill()
-
-        let topMargin = CGRect(x: 0, y: 0, width: size.width, height: offset)
-        let bottomMargin = CGRect(x: 0, y: size.width + offset, width: size.width, height: offset)
-        UIRectFillUsingBlendMode(topMargin, .normal)
-        UIRectFillUsingBlendMode(bottomMargin, .normal)
-        
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return newImage
     }
     
     func maskImage(image: UIImage, at point: CGPoint) -> UIImage {
@@ -409,6 +328,7 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
     }
     
     func resetUI() {
+        heatmaps = [String: HeatmapImages]()
         if captureSession != nil {
             simulatorTextView.isHidden = true
             imageView.isHidden = true
@@ -455,11 +375,18 @@ class ImageClassificationViewController: UIViewController, ImageClassificationVi
     @IBAction func reset() {
         resetUI()
     }
+    
+    // MARK: - Structs
+    
+    struct HeatmapImages {
+        let heatmap: UIImage
+        let outline: UIImage
+    }
 }
 
 // MARK: - Error Handling
 
-extension ImageClassificationViewController {
+extension CameraViewController {
     func showAlert(_ alertTitle: String, alertMessage: String) {
         let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default, handler: nil))
@@ -496,7 +423,7 @@ extension ImageClassificationViewController {
 
 // MARK: - UIImagePickerControllerDelegate
 
-extension ImageClassificationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension CameraViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         picker.dismiss(animated: true)
         
@@ -510,7 +437,7 @@ extension ImageClassificationViewController: UIImagePickerControllerDelegate, UI
 
 // MARK: - AVCapturePhotoCaptureDelegate
 
-extension ImageClassificationViewController: AVCapturePhotoCaptureDelegate {
+extension CameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
@@ -522,6 +449,14 @@ extension ImageClassificationViewController: AVCapturePhotoCaptureDelegate {
         }
         
         classifyImage(image)
+    }
+}
+
+// MARK: - TableViewControllerSelectionDelegate
+
+extension CameraViewController: TableViewControllerSelectionDelegate {
+    func didSelectItem(_ name: String) {
+        startAnalysis(classToAnalyze: name)
     }
 }
 
