@@ -20,7 +20,7 @@ import AVFoundation
 import VisualRecognitionV3
 
 struct VisualRecognitionConstants {
-    static let modelIds = ["StarBuck_362841315"]
+    static let modelIds = ["YOUR_MODEL_ID"]
     static let version = "2018-07-24"
 }
 
