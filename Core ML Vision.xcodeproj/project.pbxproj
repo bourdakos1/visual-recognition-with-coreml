@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		236F3C6020A3E948001E252E /* VisualRecognition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F3C5F20A3E948001E252E /* VisualRecognition+Extension.swift */; };
+		236F3C6020A3E948001E252E /* VisualRecognition+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236F3C5F20A3E948001E252E /* VisualRecognition+Helpers.swift */; };
+		237A0D5721274ABE003FA1F9 /* CameraViewController+Heatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237A0D5621274ABE003FA1F9 /* CameraViewController+Heatmap.swift */; };
 		23B0A77920A3888B00D02B06 /* UIViewController+PulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A77820A3888B00D02B06 /* UIViewController+PulleyViewController.swift */; };
 		23B0A77B20A3A7FB00D02B06 /* Credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23B0A77A20A3A7FB00D02B06 /* Credentials.plist */; };
 		23CC92B320A1530F00F70DDC /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CC92B220A1530F00F70DDC /* ProgressBar.swift */; };
+		23D8615B2125C31500B9D5AF /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D8615A2125C31500B9D5AF /* CameraViewController.swift */; };
 		2D7870C11FE1CF6F0018BFE9 /* PulleyPassthroughScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7870C01FE1CF6F0018BFE9 /* PulleyPassthroughScrollView.swift */; };
 		2D7870C31FE1CF910018BFE9 /* PulleyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7870C21FE1CF910018BFE9 /* PulleyViewController.swift */; };
 		2D7870C51FE1CFDE0018BFE9 /* UIView+constrainToParent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7870C41FE1CFDE0018BFE9 /* UIView+constrainToParent.swift */; };
 		2D7DF31D204F4CA500CC26D7 /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7DF31C204F4CA500CC26D7 /* SwiftSpinner.swift */; };
 		2DBDD2951FCF7FAE004A6DC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDD2941FCF7FAE004A6DC1 /* AppDelegate.swift */; };
-		2DBDD2971FCF7FAE004A6DC1 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDD2961FCF7FAE004A6DC1 /* CameraViewController.swift */; };
 		2DBDD29F1FCF7FAE004A6DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DBDD29E1FCF7FAE004A6DC1 /* Assets.xcassets */; };
 		2DBDD2A21FCF7FAE004A6DC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DBDD2A01FCF7FAE004A6DC1 /* LaunchScreen.storyboard */; };
 		2DBEDF461FD20680003F17C8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DBEDF451FD20672003F17C8 /* Main.storyboard */; };
@@ -41,17 +42,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		236F3C5F20A3E948001E252E /* VisualRecognition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualRecognition+Extension.swift"; sourceTree = "<group>"; };
+		236F3C5F20A3E948001E252E /* VisualRecognition+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VisualRecognition+Helpers.swift"; sourceTree = "<group>"; };
+		237A0D5621274ABE003FA1F9 /* CameraViewController+Heatmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CameraViewController+Heatmap.swift"; sourceTree = "<group>"; };
 		23B0A77820A3888B00D02B06 /* UIViewController+PulleyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PulleyViewController.swift"; sourceTree = "<group>"; };
 		23B0A77A20A3A7FB00D02B06 /* Credentials.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Credentials.plist; sourceTree = "<group>"; };
 		23CC92B220A1530F00F70DDC /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		23D8615A2125C31500B9D5AF /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		2D7870C01FE1CF6F0018BFE9 /* PulleyPassthroughScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulleyPassthroughScrollView.swift; sourceTree = "<group>"; };
 		2D7870C21FE1CF910018BFE9 /* PulleyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulleyViewController.swift; sourceTree = "<group>"; };
 		2D7870C41FE1CFDE0018BFE9 /* UIView+constrainToParent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+constrainToParent.swift"; sourceTree = "<group>"; };
 		2D7DF31C204F4CA500CC26D7 /* SwiftSpinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
 		2DBDD2911FCF7FAE004A6DC1 /* Core ML Vision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Core ML Vision.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DBDD2941FCF7FAE004A6DC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2DBDD2961FCF7FAE004A6DC1 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		2DBDD29E1FCF7FAE004A6DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DBDD2A11FCF7FAE004A6DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DBDD2A31FCF7FAE004A6DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				2D7870C61FE1D3A30018BFE9 /* Pulley Framework */,
+				236F3C5F20A3E948001E252E /* VisualRecognition+Helpers.swift */,
 				2D7DF31C204F4CA500CC26D7 /* SwiftSpinner.swift */,
 				23CC92B220A1530F00F70DDC /* ProgressBar.swift */,
 			);
@@ -116,7 +119,8 @@
 			children = (
 				2D7DF31E204F4D1E00CC26D7 /* Supporting Files */,
 				2DBDD2941FCF7FAE004A6DC1 /* AppDelegate.swift */,
-				2DBDD2961FCF7FAE004A6DC1 /* CameraViewController.swift */,
+				23D8615A2125C31500B9D5AF /* CameraViewController.swift */,
+				237A0D5621274ABE003FA1F9 /* CameraViewController+Heatmap.swift */,
 				2DBEDF451FD20672003F17C8 /* Main.storyboard */,
 				2DBDD29E1FCF7FAE004A6DC1 /* Assets.xcassets */,
 				2DBDD2A01FCF7FAE004A6DC1 /* LaunchScreen.storyboard */,
@@ -124,7 +128,6 @@
 				23B0A77A20A3A7FB00D02B06 /* Credentials.plist */,
 				2DC5F13C1FD609050063B2D5 /* ResultsTableViewController.swift */,
 				2DC5F13E1FD6093B0063B2D5 /* ResultsTableViewCell.swift */,
-				236F3C5F20A3E948001E252E /* VisualRecognition+Extension.swift */,
 			);
 			path = "Core ML Vision";
 			sourceTree = "<group>";
@@ -208,11 +211,12 @@
 				2DC5F13F1FD6093B0063B2D5 /* ResultsTableViewCell.swift in Sources */,
 				2D7DF31D204F4CA500CC26D7 /* SwiftSpinner.swift in Sources */,
 				2D7870C11FE1CF6F0018BFE9 /* PulleyPassthroughScrollView.swift in Sources */,
-				2DBDD2971FCF7FAE004A6DC1 /* CameraViewController.swift in Sources */,
 				2DBDD2951FCF7FAE004A6DC1 /* AppDelegate.swift in Sources */,
 				2D7870C51FE1CFDE0018BFE9 /* UIView+constrainToParent.swift in Sources */,
+				237A0D5721274ABE003FA1F9 /* CameraViewController+Heatmap.swift in Sources */,
+				23D8615B2125C31500B9D5AF /* CameraViewController.swift in Sources */,
 				23B0A77920A3888B00D02B06 /* UIViewController+PulleyViewController.swift in Sources */,
-				236F3C6020A3E948001E252E /* VisualRecognition+Extension.swift in Sources */,
+				236F3C6020A3E948001E252E /* VisualRecognition+Helpers.swift in Sources */,
 				2D7870C31FE1CF910018BFE9 /* PulleyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

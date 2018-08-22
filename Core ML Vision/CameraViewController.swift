@@ -16,7 +16,7 @@
 
 import UIKit
 import AVFoundation
-// This app also uses extensions from `Supporting Files/VisualRecognition+Extensions.swift`.
+// This app also uses extensions from `Supporting Files/VisualRecognition+Helpers.swift`.
 import VisualRecognitionV3
 
 struct VisualRecognitionConstants {
@@ -25,16 +25,20 @@ struct VisualRecognitionConstants {
 }
 
 class CameraViewController: UIViewController {
-    
+
     // MARK: - IBOutlets
     
-    @IBOutlet var cameraView: UIView!
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var noCameraView: UIView!
-    @IBOutlet var captureButton: UIButton!
-    @IBOutlet var closeButton: UIButton!
-    @IBOutlet var updateModelButton: UIButton!
-    @IBOutlet var choosePhotoButton: UIButton!
+    @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var heatmapView: UIImageView!
+    @IBOutlet weak var outlineView: UIImageView!
+    @IBOutlet weak var focusView: UIImageView!
+    @IBOutlet weak var simulatorTextView: UITextView!
+    @IBOutlet weak var captureButton: UIButton!
+    @IBOutlet weak var updateModelButton: UIButton!
+    @IBOutlet weak var choosePhotoButton: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var alphaSlider: UISlider!
     
     // MARK: - Variable Declarations
     
@@ -71,7 +75,7 @@ class CameraViewController: UIViewController {
         if captureSession.canAddOutput(photoOutput) {
             captureSession.addOutput(photoOutput)
             let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            previewLayer.frame = view.bounds
+            previewLayer.frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: view.bounds.height)
             // `.resize` allows the camera to fill the screen on the iPhone X.
             previewLayer.videoGravity = .resize
             previewLayer.connection?.videoOrientation = .portrait
@@ -81,7 +85,9 @@ class CameraViewController: UIViewController {
         return nil
     }()
     
-    // MARK: - Override Functions
+    var editedImage = UIImage()
+    var originalConfs = [ClassResult]()
+    var heatmaps = [String: HeatmapImages]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,7 +97,13 @@ class CameraViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        var modelsToUpdate = [String]()
+        
+        let dispatchGroup = DispatchGroup()
+        
         for modelId in VisualRecognitionConstants.modelIds {
+            dispatchGroup.enter()
             /*
              `checkLocalModelStatus` is not part of the Watson SDK.
              `checkLocalModelStatus` is a convenient extension that checks if the local model
@@ -99,63 +111,196 @@ class CameraViewController: UIViewController {
              However, we perfom this check purely for UI purposes.
              */
             visualRecognition.checkLocalModelStatus(classifierID: modelId) { modelUpToDate in
+                defer { dispatchGroup.leave() }
                 if !modelUpToDate {
-                    self.updateLocalModel(id: modelId)
+                    modelsToUpdate.append(modelId)
                 }
             }
         }
-    }
-    
-    // MARK: - Methods
-    
-    func updateLocalModel(id modelId: String) {
-        let failure = { (error: Error) in
-            DispatchQueue.main.async {
-                self.modelUpdateFail(modelId: modelId, error: error)
-                SwiftSpinner.hide()
-            }
+        
+        dispatchGroup.notify(queue: .main) {
+            self.updateLocalModels(ids: modelsToUpdate)
         }
         
-        let success = {
-            DispatchQueue.main.async {
-                SwiftSpinner.hide()
-            }
+        guard let drawer = pulleyViewController?.drawerContentViewController as? ResultsTableViewController else {
+            return
         }
-        // The spinner can only be hailed after viewDidAppear.
-        SwiftSpinner.show("Compiling model...")
-        visualRecognition.updateLocalModel(classifierID: modelId, failure: failure, success: success)
+        
+        drawer.delegate = self
     }
     
-    func presentPhotoPicker(sourceType: UIImagePickerControllerSourceType) {
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        picker.sourceType = sourceType
-        present(picker, animated: true)
+    func updateLocalModels(ids modelIds: [String]) {
+        // If the array is empty the dispatch group won't be notified, so we might end up with an endless spinner.
+        if modelIds.count <= 0 { return }
+        
+        SwiftSpinner.show("Compiling model...")
+        
+        let dispatchGroup = DispatchGroup()
+        
+        for modelId in modelIds {
+            dispatchGroup.enter()
+            let failure = { (error: Error) in
+                DispatchQueue.main.async {
+                    self.modelUpdateFail(modelId: modelId, error: error)
+                    dispatchGroup.leave()
+                }
+            }
+            let success = {
+                dispatchGroup.leave()
+            }
+            
+            visualRecognition.updateLocalModel(classifierID: modelId, failure: failure, success: success)
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            SwiftSpinner.hide()
+        }
     }
+    
+    // MARK: - Image Classification
     
     func classifyImage(_ image: UIImage, localThreshold: Double = 0.0) {
+        editedImage = cropToCenter(image: image, targetSize: CGSize(width: 224, height: 224))
+        
         showResultsUI(for: image)
         
-        let failure = { (error: Error) in
-            DispatchQueue.main.async {
-                self.showAlert("Could not classify image", alertMessage: error.localizedDescription)
-                self.resetUI()
+        visualRecognition.classifyWithLocalModel(image: editedImage, classifierIDs: VisualRecognitionConstants.modelIds, threshold: localThreshold, failure: nil) { classifiedImages in
+
+            // Make sure that an image was successfully classified.
+            guard let classifiedImage = classifiedImages.images.first,
+                let classifier = classifiedImage.classifiers.first else {
+                    return
             }
+            
+            DispatchQueue.main.async {
+                self.push(results: [classifier])
+            }
+        
+            self.originalConfs = classifier.classes
+        }
+    }
+    
+    func startAnalysis(classToAnalyze: String, localThreshold: Double = 0.0) {
+        if let heatmapImages = heatmaps[classToAnalyze] {
+            heatmapView.image = heatmapImages.heatmap
+            outlineView.image = heatmapImages.outline
+            return
         }
         
-        visualRecognition.classifyWithLocalModel(image: image, classifierIDs: VisualRecognitionConstants.modelIds, threshold: localThreshold, failure: failure) { classifiedImages in
-            
-            // Make sure that an image was successfully classified.
-            guard let classifiedImage = classifiedImages.images.first else {
+        var confidences = [[Double]](repeating: [Double](repeating: -1, count: 17), count: 17)
+ 
+        DispatchQueue.main.async {
+            SwiftSpinner.show("analyzing")
+        }
+        
+        let chosenClasses = originalConfs.filter({ return $0.className == classToAnalyze })
+        guard let chosenClass = chosenClasses.first,
+            let originalConf = chosenClass.score else {
                 return
+        }
+        
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        
+        DispatchQueue.global(qos: .background).async {
+            for down in 0 ..< 11 {
+                for right in 0 ..< 11 {
+                    confidences[down + 3][right + 3] = 0
+                    dispatchGroup.enter()
+                    let maskedImage = self.maskImage(image: self.editedImage, at: CGPoint(x: right, y: down))
+                    self.visualRecognition.classifyWithLocalModel(image: maskedImage, classifierIDs: VisualRecognitionConstants.modelIds, threshold: localThreshold, failure: nil) { [down, right] classifiedImages in
+                        
+                        defer { dispatchGroup.leave() }
+ 
+                        // Make sure that an image was successfully classified.
+                        guard let classifiedImage = classifiedImages.images.first,
+                            let classifier = classifiedImage.classifiers.first else {
+                                return
+                        }
+                        
+                        let usbClass = classifier.classes.filter({ return $0.className == classToAnalyze })
+                        
+                        guard let usbClassSingle = usbClass.first,
+                            let score = usbClassSingle.score else {
+                                return
+                        }
+                        
+                        print(".", terminator:"")
+                        
+                        confidences[down + 3][right + 3] = score
+                    }
+                }
             }
+            dispatchGroup.leave()
             
-            // Update UI on main thread
-            DispatchQueue.main.async {
-                // Push the classification results of all the provided models to the ResultsTableView.
-                self.push(results: classifiedImage.classifiers)
+            dispatchGroup.notify(queue: .main) {
+                print()
+                print(confidences)
+                
+                guard let image = self.imageView.image else {
+                    return
+                }
+                
+                let heatmap = self.calculateHeatmap(confidences, originalConf)
+                let heatmapImage = self.renderHeatmap(heatmap, color: .black, size: image.size)
+                let outlineImage = self.renderOutline(heatmap, size: image.size)
+                
+                let heatmapImages = HeatmapImages(heatmap: heatmapImage, outline: outlineImage)
+                self.heatmaps[classToAnalyze] = heatmapImages
+                
+                self.heatmapView.image = heatmapImage
+                self.outlineView.image = outlineImage
+                self.heatmapView.alpha = CGFloat(self.alphaSlider.value)
+                
+                self.heatmapView.isHidden = false
+                self.outlineView.isHidden = false
+                self.alphaSlider.isHidden = false
+                
+                SwiftSpinner.hide()
             }
         }
+    }
+    
+    func maskImage(image: UIImage, at point: CGPoint) -> UIImage {
+        let size = image.size
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        
+        image.draw(at: .zero)
+        
+        let rectangle = CGRect(x: point.x * 16, y: point.y * 16, width: 64, height: 64)
+        
+        UIColor(red: 1, green: 0, blue: 1, alpha: 1).setFill()
+        UIRectFill(rectangle)
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    func cropToCenter(image: UIImage, targetSize: CGSize) -> UIImage {
+        let offset = abs((image.size.width - image.size.height) / 2)
+        let posX = image.size.width > image.size.height ? offset : 0.0
+        let posY = image.size.width < image.size.height ? offset : 0.0
+        let newSize = CGFloat(min(image.size.width, image.size.height))
+        
+        // crop image to square
+        let cropRect = CGRect(x: posX, y: posY, width: newSize, height: newSize)
+        
+        guard let cgImage = image.cgImage,
+            let cropped = cgImage.cropping(to: cropRect) else {
+                return image
+        }
+        
+        let image = UIImage(cgImage: cropped, scale: image.scale, orientation: image.imageOrientation)
+        
+        let resizeRect = CGRect(x: 0, y: 0, width: targetSize.width, height: targetSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(targetSize, false, 1.0)
+        image.draw(in: resizeRect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
     
     func dismissResults() {
@@ -174,25 +319,31 @@ class CameraViewController: UIViewController {
     func showResultsUI(for image: UIImage) {
         imageView.image = image
         imageView.isHidden = false
-        noCameraView.isHidden = true
+        simulatorTextView.isHidden = true
         closeButton.isHidden = false
         captureButton.isHidden = true
         choosePhotoButton.isHidden = true
         updateModelButton.isHidden = true
+        focusView.isHidden = true
     }
     
     func resetUI() {
+        heatmaps = [String: HeatmapImages]()
         if captureSession != nil {
-            noCameraView.isHidden = true
+            simulatorTextView.isHidden = true
             imageView.isHidden = true
             captureButton.isHidden = false
+            focusView.isHidden = false
         } else {
             imageView.image = UIImage(named: "Background")
-            noCameraView.isHidden = false
+            simulatorTextView.isHidden = false
             imageView.isHidden = false
             captureButton.isHidden = true
+            focusView.isHidden = true
         }
-        
+        heatmapView.isHidden = true
+        outlineView.isHidden = true
+        alphaSlider.isHidden = true
         closeButton.isHidden = true
         choosePhotoButton.isHidden = false
         updateModelButton.isHidden = false
@@ -201,14 +352,17 @@ class CameraViewController: UIViewController {
     
     // MARK: - IBActions
     
+    @IBAction func sliderValueChanged(_ sender: UISlider) {
+        let currentValue = CGFloat(sender.value)
+        self.heatmapView.alpha = currentValue
+    }
+    
     @IBAction func capturePhoto() {
         photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
     @IBAction func updateModel(_ sender: Any) {
-        for modelId in VisualRecognitionConstants.modelIds {
-            updateLocalModel(id: modelId)
-        }
+        updateLocalModels(ids: VisualRecognitionConstants.modelIds)
     }
     
     @IBAction func presentPhotoPicker() {
@@ -220,6 +374,13 @@ class CameraViewController: UIViewController {
     
     @IBAction func reset() {
         resetUI()
+    }
+    
+    // MARK: - Structs
+    
+    struct HeatmapImages {
+        let heatmap: UIImage
+        let outline: UIImage
     }
 }
 
@@ -282,12 +443,21 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
             print(error.localizedDescription)
             return
         }
-        
         guard let photoData = photo.fileDataRepresentation(),
             let image = UIImage(data: photoData) else {
-                return
+            return
         }
         
         classifyImage(image)
     }
 }
+
+// MARK: - TableViewControllerSelectionDelegate
+
+extension CameraViewController: TableViewControllerSelectionDelegate {
+    func didSelectItem(_ name: String) {
+        startAnalysis(classToAnalyze: name)
+    }
+}
+
+
