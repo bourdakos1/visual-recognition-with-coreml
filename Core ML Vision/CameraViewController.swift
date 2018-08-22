@@ -20,7 +20,7 @@ import AVFoundation
 import VisualRecognitionV3
 
 struct VisualRecognitionConstants {
-    static let modelIds = ["DefaultCustomModel_936213647"]
+    static let modelIds = ["StarBuck_362841315"]
     static let version = "2018-07-24"
 }
 
@@ -211,14 +211,14 @@ class CameraViewController: UIViewController {
                     self.visualRecognition.classifyWithLocalModel(image: maskedImage, classifierIDs: VisualRecognitionConstants.modelIds, threshold: localThreshold, failure: nil) { [down, right] classifiedImages in
                         
                         defer { dispatchGroup.leave() }
-                        
+ 
                         // Make sure that an image was successfully classified.
                         guard let classifiedImage = classifiedImages.images.first,
                             let classifier = classifiedImage.classifiers.first else {
                                 return
                         }
                         
-                        let usbClass = classifier.classes.filter({ return $0.className.uppercased() == classToAnalyze })
+                        let usbClass = classifier.classes.filter({ return $0.className == classToAnalyze })
                         
                         guard let usbClassSingle = usbClass.first,
                             let score = usbClassSingle.score else {
