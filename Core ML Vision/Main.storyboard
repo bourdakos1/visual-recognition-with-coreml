@@ -64,7 +64,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0k-SZ-2ab">
                                 <rect key="frame" x="300" y="561" width="55" height="55"/>
-                                <state key="normal" image="Choose"/>
+                                <state key="normal" image="Update"/>
                                 <connections>
                                     <action selector="updateModel:" destination="MPu-h4-IWa" eventType="touchUpInside" id="39k-na-ywz"/>
                                 </connections>
@@ -326,5 +326,6 @@
         <image name="Capture" width="77" height="77"/>
         <image name="Choose" width="55" height="55"/>
         <image name="Focus" width="414" height="414"/>
+        <image name="Update" width="55" height="55"/>
     </resources>
 </document>
